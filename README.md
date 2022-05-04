@@ -1,4 +1,4 @@
 # HPC-Final-Project
 
-- You can see the problem description in  doc/Problem.md
+- You can see the problem description in  doc/Problem.tex
 
