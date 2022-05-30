@@ -1,0 +1,388 @@
+Sender: LSF System <lsfadmin@r13n45>
+Subject: Job 3801625: <mytest> in cluster <sustchpc> Done
+
+Job <mytest> was submitted from host <login03> by user <mae-liq1> in cluster <sustchpc> at Mon May 30 23:20:41 2022.
+Job was executed on host(s) <r13n45>, in queue <debug>, as user <mae-liq1> in cluster <sustchpc> at Mon May 30 23:20:41 2022.
+</work/mae-liq1> was used as the home directory.
+</work/mae-liq1/hpc/HPC-Final-Project> was used as the working directory.
+Started at Mon May 30 23:20:41 2022.
+Terminated at Mon May 30 23:20:43 2022.
+Results reported at Mon May 30 23:20:43 2022.
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#BSUB -J mytest
+#BSUB -q debug
+#BSUB -e final-pro.err
+#BSUB -o final-pro.out
+
+module purge
+module load mpi/intel/2018.4
+
+mpirun -np 2  ./final.out -ksp_type gmres -pc_type none -log_view
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   0.18 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              -
+    Max Threads :                                -
+    Run time :                                   1 sec.
+    Turnaround time :                            2 sec.
+
+The output (if any) follows:
+
+yk is so close to yk-1
+The eigenvector is :
+Vec Object: 2 MPI processes
+  type: mpi
+Process [0]
+0.120131
+0.23053
+0.322253
+0.387868
+0.422061
+Process [1]
+0.422061
+0.387868
+0.322253
+0.23053
+0.120131
+The eigenvector is : 0.0810141
+************************************************************************************************************************
+***             WIDEN YOUR WINDOW TO 120 CHARACTERS.  Use 'enscript -r -fCourier9' to print this document            ***
+************************************************************************************************************************
+
+---------------------------------------------- PETSc Performance Summary: ----------------------------------------------
+
+./final.out on a  named r13n45 with 2 processors, by mae-liq1 Mon May 30 23:20:42 2022
+Using Petsc Release Version 3.16.6, Mar 30, 2022 
+
+                         Max       Max/Min     Avg       Total
+Time (sec):           8.993e-03     1.000   8.991e-03
+Objects:              3.400e+01     1.000   3.400e+01
+Flop:                 1.277e+04     1.000   1.277e+04  2.554e+04
+Flop/sec:             1.421e+06     1.000   1.421e+06  2.841e+06
+MPI Messages:         9.650e+01     1.000   9.650e+01  1.930e+02
+MPI Message Lengths:  7.800e+02     1.000   8.083e+00  1.560e+03
+MPI Reductions:       2.350e+02     1.000
+
+Flop counting convention: 1 flop = 1 real number operation of type (multiply/divide/add/subtract)
+                            e.g., VecAXPY() for real vectors of length N --> 2N flop
+                            and VecAXPY() for complex vectors of length N --> 8N flop
+
+Summary of Stages:   ----- Time ------  ----- Flop ------  --- Messages ---  -- Message Lengths --  -- Reductions --
+                        Avg     %Total     Avg     %Total    Count   %Total     Avg         %Total    Count   %Total
+ 0:      Main Stage: 8.9715e-03  99.8%  2.5544e+04 100.0%  1.930e+02 100.0%  8.083e+00      100.0%  2.170e+02  92.3%
+
+------------------------------------------------------------------------------------------------------------------------
+See the 'Profiling' chapter of the users' manual for details on interpreting output.
+Phase summary info:
+   Count: number of times phase was executed
+   Time and Flop: Max - maximum over all processors
+                  Ratio - ratio of maximum to minimum over all processors
+   Mess: number of messages sent
+   AvgLen: average message length (bytes)
+   Reduct: number of global reductions
+   Global: entire computation
+   Stage: stages of a computation. Set stages with PetscLogStagePush() and PetscLogStagePop().
+      %T - percent time in this phase         %F - percent flop in this phase
+      %M - percent messages in this phase     %L - percent message lengths in this phase
+      %R - percent reductions in this phase
+   Total Mflop/s: 10e-6 * (sum of flop over all processors)/(max time over all processors)
+------------------------------------------------------------------------------------------------------------------------
+Event                Count      Time (sec)     Flop                              --- Global ---  --- Stage ----  Total
+                   Max Ratio  Max     Ratio   Max  Ratio  Mess   AvgLen  Reduct  %T %F %M %L %R  %T %F %M %L %R Mflop/s
+------------------------------------------------------------------------------------------------------------------------
+
+--- Event Stage 0: Main Stage
+
+BuildTwoSided          3 1.0 1.6212e-04 1.1 0.00e+00 0.0 2.0e+00 4.0e+00 3.0e+00  2  0  1  1  1   2  0  1  1  1     0
+BuildTwoSidedF         2 1.0 1.3876e-04 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 2.0e+00  2  0  0  0  1   2  0  0  0  1     0
+VecView                1 1.0 8.6069e-05 1.6 0.00e+00 0.0 1.0e+00 4.0e+01 0.0e+00  1  0  1  3  0   1  0  1  3  0     0
+VecDot                 1 1.0 1.9073e-06 2.0 9.00e+00 1.0 0.0e+00 0.0e+00 1.0e+00  0  0  0  0  0   0  0  0  0  0     9
+VecMDot               93 1.0 1.4138e-04 1.2 3.77e+03 1.0 0.0e+00 0.0e+00 9.3e+01  1 30  0  0 40   1 30  0  0 43    53
+VecNorm              108 1.0 1.9267e-03 1.0 1.08e+03 1.0 0.0e+00 0.0e+00 1.1e+02 21  8  0  0 46  21  8  0  0 50     1
+VecScale              98 1.0 5.4598e-05 1.5 4.90e+02 1.0 0.0e+00 0.0e+00 0.0e+00  1  4  0  0  0   1  4  0  0  0    18
+VecCopy              135 1.0 2.0266e-05 1.5 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+VecSet                29 1.0 1.8835e-05 1.3 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+VecAXPY               14 1.0 4.1723e-05 1.4 1.40e+02 1.0 0.0e+00 0.0e+00 0.0e+00  0  1  0  0  0   0  1  0  0  0     7
+VecMAXPY             107 1.0 2.6941e-05 1.0 5.12e+03 1.0 0.0e+00 0.0e+00 0.0e+00  0 40  0  0  0   0 40  0  0  0   380
+VecAssemblyBegin       1 1.0 4.7922e-05 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 1.0e+00  1  0  0  0  0   1  0  0  0  0     0
+VecAssemblyEnd         1 1.0 1.9073e-06 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+VecScatterBegin       94 1.0 7.0047e-04 1.0 0.00e+00 0.0 1.9e+02 7.9e+00 1.0e+00  8  0 99 97  0   8  0 99 97  0     0
+VecScatterEnd         94 1.0 1.2922e-04 1.3 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  1  0  0  0  0   1  0  0  0  0     0
+VecNormalize         107 1.0 1.9507e-03 1.0 1.36e+03 1.0 0.0e+00 0.0e+00 9.4e+01 22 11  0  0 40  22 11  0  0 43     1
+MatMult               94 1.0 8.9622e-04 1.0 2.16e+03 1.0 1.9e+02 7.9e+00 1.0e+00 10 17 99 97  0  10 17 99 97  0     5
+MatAssemblyBegin       1 1.0 1.9383e-04 1.1 0.00e+00 0.0 0.0e+00 0.0e+00 1.0e+00  2  0  0  0  0   2  0  0  0  0     0
+MatAssemblyEnd         1 1.0 6.8116e-04 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 5.0e+00  7  0  0  0  2   7  0  0  0  2     0
+SFSetGraph             1 1.0 0.0000e+00 0.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+SFSetUp                1 1.0 1.3590e-04 1.1 0.00e+00 0.0 4.0e+00 4.0e+00 1.0e+00  1  0  2  1  0   1  0  2  1  0     0
+SFPack                94 1.0 1.6928e-05 1.9 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+SFUnpack              94 1.0 4.7684e-06 1.2 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+KSPSetUp               1 1.0 3.1948e-05 1.1 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+KSPSolve              14 1.0 4.2377e-03 1.0 1.25e+04 1.0 1.9e+02 7.9e+00 1.9e+02 47 98 98 96 80  47 98 98 96 87     6
+KSPGMRESOrthog        93 1.0 2.3031e-04 1.0 7.96e+03 1.0 0.0e+00 0.0e+00 9.3e+01  3 62  0  0 40   3 62  0  0 43    69
+PCSetUp                1 1.0 9.5367e-07 0.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+PCApply              107 1.0 3.4571e-05 1.3 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+------------------------------------------------------------------------------------------------------------------------
+
+Memory usage is given in bytes:
+
+Object Type          Creations   Destructions     Memory  Descendants' Mem.
+Reports information only for process 0.
+
+--- Event Stage 0: Main Stage
+
+              Vector    19             19        33848     0.
+              Matrix     3              3        10444     0.
+           Index Set     2              2         1788     0.
+   Star Forest Graph     3              3         3312     0.
+       Krylov Solver     1              1        18848     0.
+      Preconditioner     1              1          872     0.
+    Distributed Mesh     1              1         5048     0.
+     Discrete System     1              1          896     0.
+           Weak Form     1              1          616     0.
+              Viewer     2              1          840     0.
+========================================================================================================================
+Average time to get PetscTime(): 9.53674e-08
+Average time for MPI_Barrier(): 3.8147e-07
+Average time for zero size MPI_Send(): 3.57628e-06
+#PETSc Option Table entries:
+-ksp_type gmres
+-log_view
+-pc_type none
+#End of PETSc Option Table entries
+Compiled without FORTRAN kernels
+Compiled with full precision matrices (default)
+sizeof(short) 2 sizeof(int) 4 sizeof(long) 8 sizeof(void*) 8 sizeof(PetscScalar) 8 sizeof(PetscInt) 4
+Configure options: --prefix=/work/mae-liq1/lib/petsc-3.16.6 --with-blaslapack-dir=/share/intel/2018u4/compilers_and_libraries_2018.5.274/linux/mkl --with-debugging=no --download-hypre --download-metis --download-hdf5=/work/mae-liq1/software/hdf5-1.12.1.tar.gz --with-mpi-dir=/share/intel/2018u4/compilers_and_libraries_2018.5.274/linux/mpi/intel64 COPTFLAGS="-O3 -march=native -mtune=native" CXXPTFLAGS="-O3 -march=native -mtune=native" FOPTFLAGS="-O3 -march=native -mtune=native"
+-----------------------------------------
+Libraries compiled on 2022-05-03 14:18:39 on login03 
+Machine characteristics: Linux-3.10.0-862.el7.x86_64-x86_64-with-redhat-7.5-Maipo
+Using PETSc directory: /work/mae-liq1/lib/petsc-3.16.6
+Using PETSc arch: 
+-----------------------------------------
+
+Using C compiler: /share/intel/2018u4/compilers_and_libraries_2018.5.274/linux/mpi/intel64/bin/mpicc  -fPIC -Wall -Wwrite-strings -Wno-strict-aliasing -Wno-unknown-pragmas -fstack-protector -fvisibility=hidden -O3 -march=native -mtune=native  -std=c99 
+Using Fortran compiler: /share/intel/2018u4/compilers_and_libraries_2018.5.274/linux/mpi/intel64/bin/mpif90  -fPIC -Wall -ffree-line-length-0 -Wno-unused-dummy-argument -O3 -march=native -mtune=native     -std=c99
+-----------------------------------------
+
+Using include paths: -I/work/mae-liq1/lib/petsc-3.16.6/include -I/share/intel/2018u4/compilers_and_libraries_2018.5.274/linux/mkl/include -I/share/intel/2018u4/compilers_and_libraries_2018.5.274/linux/mpi/intel64/include
+-----------------------------------------
+
+Using C linker: /share/intel/2018u4/compilers_and_libraries_2018.5.274/linux/mpi/intel64/bin/mpicc
+Using Fortran linker: /share/intel/2018u4/compilers_and_libraries_2018.5.274/linux/mpi/intel64/bin/mpif90
+Using libraries: -Wl,-rpath,/work/mae-liq1/lib/petsc-3.16.6/lib -L/work/mae-liq1/lib/petsc-3.16.6/lib -lpetsc -Wl,-rpath,/work/mae-liq1/lib/petsc-3.16.6/lib -L/work/mae-liq1/lib/petsc-3.16.6/lib -Wl,-rpath,/share/intel/2018u4/compilers_and_libraries_2018.5.274/linux/mkl/lib/intel64 -L/share/intel/2018u4/compilers_and_libraries_2018.5.274/linux/mkl/lib/intel64 -Wl,-rpath,/share/intel/2018u4/compilers_and_libraries_2018.5.274/linux/mpi/intel64/lib/release_mt -L/share/intel/2018u4/compilers_and_libraries_2018.5.274/linux/mpi/intel64/lib/release_mt -Wl,-rpath,/share/intel/2018u4/compilers_and_libraries_2018.5.274/linux/mpi/intel64/lib -L/share/intel/2018u4/compilers_and_libraries_2018.5.274/linux/mpi/intel64/lib -Wl,-rpath,/usr/lib/gcc/x86_64-redhat-linux/4.8.5 -L/usr/lib/gcc/x86_64-redhat-linux/4.8.5 -Wl,-rpath,/opt/intel/mpi-rt/2017.0.0/intel64/lib/release_mt -Wl,-rpath,/opt/intel/mpi-rt/2017.0.0/intel64/lib -lHYPRE -lmkl_intel_lp64 -lmkl_core -lmkl_sequential -lpthread -lhdf5_hl -lhdf5 -lmetis -lm -lX11 -lstdc++ -ldl -lmpifort -lmpi -lmpigi -lrt -lpthread -lgfortran -lm -lgfortran -lm -lgcc_s -lquadmath -lstdc++ -ldl
+-----------------------------------------
+
+
+
+PS:
+
+Read file <final-pro.err> for stderr output of this job.
+
+Sender: LSF System <lsfadmin@r13n45>
+Subject: Job 3801629: <mytest> in cluster <sustchpc> Done
+
+Job <mytest> was submitted from host <login03> by user <mae-liq1> in cluster <sustchpc> at Mon May 30 23:20:42 2022.
+Job was executed on host(s) <r13n45>, in queue <debug>, as user <mae-liq1> in cluster <sustchpc> at Mon May 30 23:20:44 2022.
+</work/mae-liq1> was used as the home directory.
+</work/mae-liq1/hpc/HPC-Final-Project> was used as the working directory.
+Started at Mon May 30 23:20:44 2022.
+Terminated at Mon May 30 23:20:46 2022.
+Results reported at Mon May 30 23:20:46 2022.
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#BSUB -J mytest
+#BSUB -q debug
+#BSUB -e final-pro.err
+#BSUB -o final-pro.out
+
+module purge
+module load mpi/intel/2018.4
+
+mpirun -np 2  ./final.out -ksp_type gmres -pc_type none -log_view
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   0.18 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              -
+    Max Threads :                                -
+    Run time :                                   1 sec.
+    Turnaround time :                            4 sec.
+
+The output (if any) follows:
+
+yk is so close to yk-1
+The eigenvector is :
+Vec Object: 2 MPI processes
+  type: mpi
+Process [0]
+0.120131
+0.23053
+0.322253
+0.387868
+0.422061
+Process [1]
+0.422061
+0.387868
+0.322253
+0.23053
+0.120131
+The eigenvector is : 0.0810141
+************************************************************************************************************************
+***             WIDEN YOUR WINDOW TO 120 CHARACTERS.  Use 'enscript -r -fCourier9' to print this document            ***
+************************************************************************************************************************
+
+---------------------------------------------- PETSc Performance Summary: ----------------------------------------------
+
+./final.out on a  named r13n45 with 2 processors, by mae-liq1 Mon May 30 23:20:45 2022
+Using Petsc Release Version 3.16.6, Mar 30, 2022 
+
+                         Max       Max/Min     Avg       Total
+Time (sec):           9.263e-03     1.001   9.258e-03
+Objects:              3.400e+01     1.000   3.400e+01
+Flop:                 1.277e+04     1.000   1.277e+04  2.554e+04
+Flop/sec:             1.380e+06     1.001   1.380e+06  2.759e+06
+MPI Messages:         9.650e+01     1.000   9.650e+01  1.930e+02
+MPI Message Lengths:  7.800e+02     1.000   8.083e+00  1.560e+03
+MPI Reductions:       2.350e+02     1.000
+
+Flop counting convention: 1 flop = 1 real number operation of type (multiply/divide/add/subtract)
+                            e.g., VecAXPY() for real vectors of length N --> 2N flop
+                            and VecAXPY() for complex vectors of length N --> 8N flop
+
+Summary of Stages:   ----- Time ------  ----- Flop ------  --- Messages ---  -- Message Lengths --  -- Reductions --
+                        Avg     %Total     Avg     %Total    Count   %Total     Avg         %Total    Count   %Total
+ 0:      Main Stage: 9.2371e-03  99.8%  2.5544e+04 100.0%  1.930e+02 100.0%  8.083e+00      100.0%  2.170e+02  92.3%
+
+------------------------------------------------------------------------------------------------------------------------
+See the 'Profiling' chapter of the users' manual for details on interpreting output.
+Phase summary info:
+   Count: number of times phase was executed
+   Time and Flop: Max - maximum over all processors
+                  Ratio - ratio of maximum to minimum over all processors
+   Mess: number of messages sent
+   AvgLen: average message length (bytes)
+   Reduct: number of global reductions
+   Global: entire computation
+   Stage: stages of a computation. Set stages with PetscLogStagePush() and PetscLogStagePop().
+      %T - percent time in this phase         %F - percent flop in this phase
+      %M - percent messages in this phase     %L - percent message lengths in this phase
+      %R - percent reductions in this phase
+   Total Mflop/s: 10e-6 * (sum of flop over all processors)/(max time over all processors)
+------------------------------------------------------------------------------------------------------------------------
+Event                Count      Time (sec)     Flop                              --- Global ---  --- Stage ----  Total
+                   Max Ratio  Max     Ratio   Max  Ratio  Mess   AvgLen  Reduct  %T %F %M %L %R  %T %F %M %L %R Mflop/s
+------------------------------------------------------------------------------------------------------------------------
+
+--- Event Stage 0: Main Stage
+
+BuildTwoSided          3 1.0 1.5211e-04 1.0 0.00e+00 0.0 2.0e+00 4.0e+00 3.0e+00  2  0  1  1  1   2  0  1  1  1     0
+BuildTwoSidedF         2 1.0 1.2493e-04 1.1 0.00e+00 0.0 0.0e+00 0.0e+00 2.0e+00  1  0  0  0  1   1  0  0  0  1     0
+VecView                1 1.0 1.0920e-04 1.7 0.00e+00 0.0 1.0e+00 4.0e+01 0.0e+00  1  0  1  3  0   1  0  1  3  0     0
+VecDot                 1 1.0 2.1458e-06 1.0 9.00e+00 1.0 0.0e+00 0.0e+00 1.0e+00  0  0  0  0  0   0  0  0  0  0     8
+VecMDot               93 1.0 1.6165e-04 1.2 3.77e+03 1.0 0.0e+00 0.0e+00 9.3e+01  2 30  0  0 40   2 30  0  0 43    47
+VecNorm              108 1.0 1.9071e-03 1.0 1.08e+03 1.0 0.0e+00 0.0e+00 1.1e+02 21  8  0  0 46  21  8  0  0 50     1
+VecScale              98 1.0 4.8161e-05 1.1 4.90e+02 1.0 0.0e+00 0.0e+00 0.0e+00  0  4  0  0  0   0  4  0  0  0    20
+VecCopy              135 1.0 2.1696e-05 1.7 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+VecSet                29 1.0 2.8849e-05 1.3 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+VecAXPY               14 1.0 4.1246e-05 1.1 1.40e+02 1.0 0.0e+00 0.0e+00 0.0e+00  0  1  0  0  0   0  1  0  0  0     7
+VecMAXPY             107 1.0 3.1948e-05 1.1 5.12e+03 1.0 0.0e+00 0.0e+00 0.0e+00  0 40  0  0  0   0 40  0  0  0   321
+VecAssemblyBegin       1 1.0 5.1022e-05 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 1.0e+00  1  0  0  0  0   1  0  0  0  0     0
+VecAssemblyEnd         1 1.0 2.1458e-06 1.8 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+VecScatterBegin       94 1.0 1.0722e-03 1.5 0.00e+00 0.0 1.9e+02 7.9e+00 1.0e+00 10  0 99 97  0  10  0 99 97  0     0
+VecScatterEnd         94 1.0 5.3477e-04 5.1 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  3  0  0  0  0   3  0  0  0  0     0
+VecNormalize         107 1.0 1.9505e-03 1.0 1.36e+03 1.0 0.0e+00 0.0e+00 9.4e+01 21 11  0  0 40  21 11  0  0 43     1
+MatMult               94 1.0 1.2991e-03 1.1 2.16e+03 1.0 1.9e+02 7.9e+00 1.0e+00 14 17 99 97  0  14 17 99 97  0     3
+MatAssemblyBegin       1 1.0 1.7905e-04 1.1 0.00e+00 0.0 0.0e+00 0.0e+00 1.0e+00  2  0  0  0  0   2  0  0  0  0     0
+MatAssemblyEnd         1 1.0 7.7701e-04 1.0 0.00e+00 0.0 0.0e+00 0.0e+00 5.0e+00  8  0  0  0  2   8  0  0  0  2     0
+SFSetGraph             1 1.0 1.1921e-06 1.2 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+SFSetUp                1 1.0 1.4019e-04 1.3 0.00e+00 0.0 4.0e+00 4.0e+00 1.0e+00  1  0  2  1  0   1  0  2  1  0     0
+SFPack                94 1.0 1.0014e-05 1.1 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+SFUnpack              94 1.0 1.1444e-05 1.9 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+KSPSetUp               1 1.0 3.6955e-05 1.5 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+KSPSolve              14 1.0 4.6229e-03 1.0 1.25e+04 1.0 1.9e+02 7.9e+00 1.9e+02 50 98 98 96 80  50 98 98 96 87     5
+KSPGMRESOrthog        93 1.0 2.5749e-04 1.0 7.96e+03 1.0 0.0e+00 0.0e+00 9.3e+01  3 62  0  0 40   3 62  0  0 43    62
+PCSetUp                1 1.0 0.0000e+00 0.0 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+PCApply              107 1.0 2.8133e-05 1.2 0.00e+00 0.0 0.0e+00 0.0e+00 0.0e+00  0  0  0  0  0   0  0  0  0  0     0
+------------------------------------------------------------------------------------------------------------------------
+
+Memory usage is given in bytes:
+
+Object Type          Creations   Destructions     Memory  Descendants' Mem.
+Reports information only for process 0.
+
+--- Event Stage 0: Main Stage
+
+              Vector    19             19        33848     0.
+              Matrix     3              3        10444     0.
+           Index Set     2              2         1788     0.
+   Star Forest Graph     3              3         3312     0.
+       Krylov Solver     1              1        18848     0.
+      Preconditioner     1              1          872     0.
+    Distributed Mesh     1              1         5048     0.
+     Discrete System     1              1          896     0.
+           Weak Form     1              1          616     0.
+              Viewer     2              1          840     0.
+========================================================================================================================
+Average time to get PetscTime(): 0.
+Average time for MPI_Barrier(): 3.8147e-07
+Average time for zero size MPI_Send(): 3.57628e-06
+#PETSc Option Table entries:
+-ksp_type gmres
+-log_view
+-pc_type none
+#End of PETSc Option Table entries
+Compiled without FORTRAN kernels
+Compiled with full precision matrices (default)
+sizeof(short) 2 sizeof(int) 4 sizeof(long) 8 sizeof(void*) 8 sizeof(PetscScalar) 8 sizeof(PetscInt) 4
+Configure options: --prefix=/work/mae-liq1/lib/petsc-3.16.6 --with-blaslapack-dir=/share/intel/2018u4/compilers_and_libraries_2018.5.274/linux/mkl --with-debugging=no --download-hypre --download-metis --download-hdf5=/work/mae-liq1/software/hdf5-1.12.1.tar.gz --with-mpi-dir=/share/intel/2018u4/compilers_and_libraries_2018.5.274/linux/mpi/intel64 COPTFLAGS="-O3 -march=native -mtune=native" CXXPTFLAGS="-O3 -march=native -mtune=native" FOPTFLAGS="-O3 -march=native -mtune=native"
+-----------------------------------------
+Libraries compiled on 2022-05-03 14:18:39 on login03 
+Machine characteristics: Linux-3.10.0-862.el7.x86_64-x86_64-with-redhat-7.5-Maipo
+Using PETSc directory: /work/mae-liq1/lib/petsc-3.16.6
+Using PETSc arch: 
+-----------------------------------------
+
+Using C compiler: /share/intel/2018u4/compilers_and_libraries_2018.5.274/linux/mpi/intel64/bin/mpicc  -fPIC -Wall -Wwrite-strings -Wno-strict-aliasing -Wno-unknown-pragmas -fstack-protector -fvisibility=hidden -O3 -march=native -mtune=native  -std=c99 
+Using Fortran compiler: /share/intel/2018u4/compilers_and_libraries_2018.5.274/linux/mpi/intel64/bin/mpif90  -fPIC -Wall -ffree-line-length-0 -Wno-unused-dummy-argument -O3 -march=native -mtune=native     -std=c99
+-----------------------------------------
+
+Using include paths: -I/work/mae-liq1/lib/petsc-3.16.6/include -I/share/intel/2018u4/compilers_and_libraries_2018.5.274/linux/mkl/include -I/share/intel/2018u4/compilers_and_libraries_2018.5.274/linux/mpi/intel64/include
+-----------------------------------------
+
+Using C linker: /share/intel/2018u4/compilers_and_libraries_2018.5.274/linux/mpi/intel64/bin/mpicc
+Using Fortran linker: /share/intel/2018u4/compilers_and_libraries_2018.5.274/linux/mpi/intel64/bin/mpif90
+Using libraries: -Wl,-rpath,/work/mae-liq1/lib/petsc-3.16.6/lib -L/work/mae-liq1/lib/petsc-3.16.6/lib -lpetsc -Wl,-rpath,/work/mae-liq1/lib/petsc-3.16.6/lib -L/work/mae-liq1/lib/petsc-3.16.6/lib -Wl,-rpath,/share/intel/2018u4/compilers_and_libraries_2018.5.274/linux/mkl/lib/intel64 -L/share/intel/2018u4/compilers_and_libraries_2018.5.274/linux/mkl/lib/intel64 -Wl,-rpath,/share/intel/2018u4/compilers_and_libraries_2018.5.274/linux/mpi/intel64/lib/release_mt -L/share/intel/2018u4/compilers_and_libraries_2018.5.274/linux/mpi/intel64/lib/release_mt -Wl,-rpath,/share/intel/2018u4/compilers_and_libraries_2018.5.274/linux/mpi/intel64/lib -L/share/intel/2018u4/compilers_and_libraries_2018.5.274/linux/mpi/intel64/lib -Wl,-rpath,/usr/lib/gcc/x86_64-redhat-linux/4.8.5 -L/usr/lib/gcc/x86_64-redhat-linux/4.8.5 -Wl,-rpath,/opt/intel/mpi-rt/2017.0.0/intel64/lib/release_mt -Wl,-rpath,/opt/intel/mpi-rt/2017.0.0/intel64/lib -lHYPRE -lmkl_intel_lp64 -lmkl_core -lmkl_sequential -lpthread -lhdf5_hl -lhdf5 -lmetis -lm -lX11 -lstdc++ -ldl -lmpifort -lmpi -lmpigi -lrt -lpthread -lgfortran -lm -lgfortran -lm -lgcc_s -lquadmath -lstdc++ -ldl
+-----------------------------------------
+
+
+
+PS:
+
+Read file <final-pro.err> for stderr output of this job.
+
