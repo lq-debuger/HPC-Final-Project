@@ -1,0 +1,18 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory `/work/mae-liq1/hpc/HPC-Final-Project'
+echo CC=/share/intel/2018u4/compilers_and_libraries_2018.5.274/linux/mpi/intel64/bin/mpicc
+echo CXX=/share/intel/2018u4/compilers_and_libraries_2018.5.274/linux/mpi/intel64/bin/mpicxx
+ 
+echo FC=/share/intel/2018u4/compilers_and_libraries_2018.5.274/linux/mpi/intel64/bin/mpif90
+echo CFLAGS=-fPIC -Wall -Wwrite-strings -Wno-strict-aliasing -Wno-unknown-pragmas -fstack-protector -fvisibility=hidden -O3 -march=native -mtune=native  -std=c99 -std=c99  
+echo CXXFLAGS=-Wall -Wwrite-strings -Wno-strict-aliasing -Wno-unknown-pragmas -fstack-protector -fvisibility=hidden -g -O  -fPIC -std=gnu++11 -std=c99  
+echo FFLAGS=-fPIC -Wall -ffree-line-length-0 -Wno-unused-dummy-argument -O3 -march=native -mtune=native
+echo CPPFLAGS=-I/work/mae-liq1/lib/petsc-3.16.6/include  
+echo LDFLAGS=-L/work/mae-liq1/lib/petsc-3.16.6/lib    -Wl,-rpath,/work/mae-liq1/lib/petsc-3.16.6/lib
+echo LDLIBS=-lpetsc   -lm
+echo CUDAC=/usr/local/cuda/bin/nvcc
+echo CUDAC_FLAGS=-Xcompiler -fPIC -O3 -ccbin /share/intel/2018u4/compilers_and_libraries_2018.5.274/linux/mpi/intel64/bin/mpicxx -std=c++11 -Wno-deprecated-gpu-targets
+echo CUDA_LIB=
+echo CUDA_INCLUDE=
+make: Leaving directory `/work/mae-liq1/hpc/HPC-Final-Project'
+ 
