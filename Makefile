@@ -34,6 +34,11 @@ CUDAC := $(shell pkg-config --variable=cudacompiler $(PACKAGES))
 CUDAC_FLAGS := $(shell pkg-config --variable=cudaflags_extra $(PACKAGES))
 CUDA_LIB := $(shell pkg-config --variable=cudalib $(PACKAGES))
 CUDA_INCLUDE := $(shell pkg-config --variable=cudainclude $(PACKAGES))
+ifeq ($(IMPLICIT),yes)
+	CFLAGS_FINAL := -DIMPLICIT
+else
+	CFLAGS_FINAL := -DEXPLICIT
+endif
 
 print:
 	@echo CC=$(CC)
@@ -60,7 +65,7 @@ $(EXEC) : $(OBJ)
 	$(LINK.cc) $(LDLIBS) -o $@ $^
 	$(RM) $(OBJ)
 %.o : %.cc 
-	$(COMPILE.c) $(OUTPUT_OPTION) $<
+	$(COMPILE.c) $(CFLAGS_FINAL) $(OUTPUT_OPTION) $<
 
 .PHONY : clean
 clean:

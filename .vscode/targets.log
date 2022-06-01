@@ -1,5 +1,6 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # GNU Make 3.82
+ 
 # Built for x86_64-redhat-linux-gnu
 # Copyright (C) 2010  Free Software Foundation, Inc.
 # License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
@@ -9,7 +10,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 make: *** No rule to make target `all'.  Stop.
 
 
-# Make data base, printed on Wed Jun  1 10:12:29 2022
+# Make data base, printed on Wed Jun  1 19:20:55 2022
 
 # Variables
 
@@ -25,8 +26,8 @@ QTDIR = /usr/lib64/qt-3.3
 IOZONEROOT = /share/base/iozone/3.482
 # environment
 VSCODE_AGENT_FOLDER = /work/mae-liq1/.vscode-server
-# makefile (from `Makefile', line 55)
-SRC := src/explicit.cc
+# makefile (from `Makefile', line 60)
+SRC := src/heat_1d.cc
 # environment
 VSCODE_LOG_NATIVE = false
 # environment
@@ -52,6 +53,7 @@ _ = /usr/bin/make
 # makefile (from `Makefile', line 26)
 CFLAGS := -fPIC -Wall -Wwrite-strings -Wno-strict-aliasing -Wno-unknown-pragmas -fstack-protector -fvisibility=hidden -O3 -march=native -mtune=native  -std=c99 -std=c99  
 # environment
+ 
 LSF_SERVERDIR = /opt/ibm/lsf/10.1/linux3.10-glibc2.17-x86_64/etc
 # makefile (from `Makefile', line 33)
 CUDAC := /usr/local/cuda/bin/nvcc
@@ -67,6 +69,8 @@ CXXFLAGS := -Wall -Wwrite-strings -Wno-strict-aliasing -Wno-unknown-pragmas -fst
 XDG_DATA_DIRS = /work/mae-liq1/.local/share/flatpak/exports/share/:/var/lib/flatpak/exports/share/:/usr/local/share/:/usr/share/
 # environment
 VSCODE_VERBOSE_LOGGING = true
+# makefile (from `Makefile', line 40)
+CFLAGS_FINAL := -DEXPLICIT
 # environment
 GZIP_BIN = pigz
 # environment
@@ -76,9 +80,9 @@ LESSOPEN = ||/usr/bin/lesspipe.sh %s
 # environment
 VSCODE_CWD = /work/mae-liq1
 # environment
-SSH_CONNECTION = 172.18.6.3 56406 10.11.2.2 22
+SSH_CONNECTION = 172.18.6.174 61251 10.11.2.3 22
 # environment
-PATH = /work/mae-liq1/.vscode-server/bin/c3511e6c69bb39013c4a4b7b9566ec1ca73fc4d5/bin/remote-cli:/opt/lenovo/onecli:/opt/ibm/lsf/10.1/linux3.10-glibc2.17-x86_64/etc:/opt/ibm/lsf/10.1/linux3.10-glibc2.17-x86_64/bin:/usr/lpp/mmfs/bin:/share/base/bin:/share/base/jube/2.2.1/bin:/share/base/ior/3.1.0/bin:/share/base/collectl/4.3.0/:/share/base/iozone/3.482/bin:/share/base/pdsh/2.33/bin:/usr/lib64/qt-3.3/bin:/opt/lenovo/onecli:/usr/lpp/mmfs/bin:/share/base/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:/work/mae-liq1/.local/bin:/work/mae-liq1/bin:/work/mae-liq1/.local/bin:/work/mae-liq1/bin
+PATH = /work/mae-liq1/.vscode-server/bin/c3511e6c69bb39013c4a4b7b9566ec1ca73fc4d5/bin/remote-cli:/opt/lenovo/onecli:/opt/ibm/lsf/10.1/linux3.10-glibc2.17-x86_64/etc:/opt/ibm/lsf/10.1/linux3.10-glibc2.17-x86_64/bin:/usr/lpp/mmfs/bin:/share/base/bin:/share/base/jube/2.2.1/bin:/share/base/ior/3.1.0/bin:/share/base/collectl/4.3.0/:/share/base/iozone/3.482/bin:/share/base/pdsh/2.33/bin:/usr/lib64/qt-3.3/bin:/opt/lenovo/onecli:/usr/lpp/mmfs/bin:/share/base/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:/work/mae-liq1/.local/bin:/work/mae-liq1/bin
 # environment
 QT_GRAPHICSSYSTEM_CHECKED = 1
 # environment
@@ -106,7 +110,7 @@ VSCODE_PIPE_LOGGING = true
 # environment
 PWD = /work/mae-liq1/hpc/HPC-Final-Project
 # environment
-VSCODE_IPC_HOOK_CLI = /run/user/2435/vscode-ipc-c5121d20-3b3d-494b-aca1-b4fadf29f5b0.sock
+VSCODE_IPC_HOOK_CLI = /run/user/2435/vscode-ipc-f7f23c3b-f6a3-4f53-9b8c-51369726d648.sock
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
@@ -134,7 +138,7 @@ VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # automatic
 ^D = $(patsubst %/,%,$(dir $^))
 # environment
-HOSTNAME = login02
+HOSTNAME = login03
 # environment
 MAKELEVEL := 0
 # makefile (from `Makefile', line 36)
@@ -149,10 +153,10 @@ COLLECTLROOT = /share/base/collectl/4.3.0
 CC := /share/intel/2018u4/compilers_and_libraries_2018.5.274/linux/mpi/intel64/bin/mpicc
 # environment
 OMP_NUM_THREADS = 1
-# makefile (from `Makefile', line 54)
+# makefile (from `Makefile', line 59)
 EXEC := final.out
 # environment
-XDG_SESSION_ID = 67433
+XDG_SESSION_ID = 567270
 # environment
 USER = mae-liq1
 # makefile (from `Makefile', line 24)
@@ -168,8 +172,8 @@ define BASH_FUNC_module()
 () {  eval `/usr/bin/modulecmd bash $*`
 }
 endef
-# makefile (from `Makefile', line 56)
-OBJ := src/explicit.o
+# makefile (from `Makefile', line 61)
+OBJ := src/heat_1d.o
 # default
 MAKE_COMMAND := make
 # default
@@ -185,7 +189,8 @@ MAKEFLAGS = Rrqp
 # environment
 MFLAGS = -Rrqp
 # environment
-SSH_CLIENT = 172.18.6.3 56406 22
+ 
+SSH_CLIENT = 172.18.6.174 61251 22
 # environment
 MAIL = /var/spool/mail/mae-liq1
 # environment
@@ -249,7 +254,7 @@ VSCODE_EXTHOST_WILL_SEND_SOCKET = true
 # environment
 BINARY_TYPE_HPC = 
 # variable set hash-table stats:
-# Load=116/1024=11%, Rehash=0, Collisions=17/212=8%
+# Load=117/1024=11%, Rehash=0, Collisions=17/214=8%
 
 # Pattern-specific Variable Values
 
@@ -257,16 +262,16 @@ BINARY_TYPE_HPC =
 
 # Directories
 
-# . (device 43, inode 178643804): 17 files, no impossibilities.
-# src (device 43, inode 178119157): 3 files, no impossibilities.
+# . (device 42, inode 178643804): 18 files, no impossibilities.
+# src (device 42, inode 178119157): 3 files, no impossibilities.
 
-# 20 files, no impossibilities in 2 directories.
+# 21 files, no impossibilities in 2 directories.
 
 # Implicit Rules
 
 %.o: %.cc
-#  recipe to execute (from `Makefile', line 63):
-	$(COMPILE.c) $(OUTPUT_OPTION) $<
+#  recipe to execute (from `Makefile', line 68):
+	$(COMPILE.c) $(CFLAGS_FINAL) $(OUTPUT_OPTION) $<
 
 # 1 implicit rules, 0 (0.0%) terminal.
 
@@ -279,13 +284,13 @@ all:
 #  File does not exist.
 #  File has not been updated.
 
-.PHONY: clean
+# Not a target:
+src/heat_1d.o:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
 
-# Not a target:
-src/explicit.o:
+.PHONY: clean
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -300,7 +305,7 @@ print:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  recipe to execute (from `Makefile', line 39):
+#  recipe to execute (from `Makefile', line 44):
 	@echo CC=$(CC)
 	@echo CXX=$(CXX)
 	@echo FC=$(FC)
@@ -318,7 +323,7 @@ print:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-05-30 23:12:28.190058
+#  Last modified 2022-06-01 19:20:53.843192
 #  File has been updated.
 #  Successfully updated.
 
@@ -328,11 +333,11 @@ Makefile:
 #  Modification time never checked.
 #  File has not been updated.
 
-final.out: src/explicit.o
+final.out: src/heat_1d.o
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-#  recipe to execute (from `Makefile', line 60):
+#  recipe to execute (from `Makefile', line 65):
 	$(LINK.cc) $(LDLIBS) -o $@ $^
 	$(RM) $(OBJ)
 
@@ -341,7 +346,7 @@ clean:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  recipe to execute (from `Makefile', line 67):
+#  recipe to execute (from `Makefile', line 72):
 	$(RM) $(EXEC) $(OBJ)
 
 # files hash-table stats:
@@ -352,13 +357,13 @@ clean:
 
 # No general (`VPATH' variable) search path.
 
-# # of strings in strcache: 0 / lookups = 42 / hits = 42
+# # of strings in strcache: 0 / lookups = 43 / hits = 43
 # # of strcache buffers: 1 (* 8176 B/buffer = 8176 B)
-# strcache used: total = 0 (238) / max = 0 / min = 8176 / avg = 0
-# strcache free: total = 0 (7938) / max = 0 / min = 8176 / avg = 0
+# strcache used: total = 0 (240) / max = 0 / min = 8176 / avg = 0
+# strcache free: total = 0 (7936) / max = 0 / min = 8176 / avg = 0
 
 # strcache hash-table stats:
-# Load=29/8192=0%, Rehash=0, Collisions=2/42=5%
-# Finished Make data base on Wed Jun  1 10:12:29 2022
+# Load=30/8192=0%, Rehash=0, Collisions=2/43=5%
+# Finished Make data base on Wed Jun  1 19:20:55 2022
 
  
