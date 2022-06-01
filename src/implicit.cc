@@ -10,10 +10,10 @@ int main(int argc,char **args)
   Mat            A;
   KSP            ksp;
   PC             pc;                  
-  PetscReal      norm,norm_old=1.0,kappa,dt,dx,rho,c,alpha,beta,tol=1000.*PETSC_MACHINE_EPSILON;  
+  PetscReal      kappa,dt,dx,rho,c,alpha,beta;  
   PetscErrorCode ierr;
-  PetscInt       i,n = 256,col[3],rstart,rend,rank,nlocal,steps,maxit=10000;
-  PetscScalar    value[3],value_vec,lambda,xi;
+  PetscInt       i,n = 256,col[3],rstart,rend,rank,nlocal,steps;
+  PetscScalar    value[3],value_vec,xi;
 
   kappa= 1.0;
   dt   = 0.0002;
@@ -49,9 +49,8 @@ int main(int argc,char **args)
   if (!rstart) 
   {
     rstart = 1;
-    i      = 0; col[0] = 0; col[1] = 1; value[0] = beta; value[1] = alpha; value_vec=alpha;
+    i      = 0; col[0] = 0; col[1] = 1; value[0] = beta; value[1] = alpha;
     ierr   = MatSetValues(A,1,&i,2,col,value,INSERT_VALUES);CHKERRQ(ierr);
-    // ierr   = VecSetValues(z,1,&i,&value_vec,INSERT_VALUES);CHKERRQ(ierr);
   }
   
   if (rend == n) 
@@ -65,24 +64,24 @@ int main(int argc,char **args)
   value[0] = alpha; value[1] = beta; value[2] = alpha;
   for (i=rstart; i<rend; i++) 
   {
-    col[0] = i-1; col[1] = i; col[2] = i+1;value_vec=0.0;
+    col[0] = i-1; col[1] = i; col[2] = i+1;
     ierr   = MatSetValues(A,1,&i,3,col,value,INSERT_VALUES);CHKERRQ(ierr);
-    // ierr   = VecSetValues(z,1,&i,&value_vec,INSERT_VALUES);CHKERRQ(ierr);
   }
 
   /* Assemble the matrix and vec */
   ierr = MatAssemblyBegin(A,MAT_FINAL_ASSEMBLY);CHKERRQ(ierr);
   ierr = MatAssemblyEnd(A,MAT_FINAL_ASSEMBLY);CHKERRQ(ierr);
+  // ierr = MatView(A, PETSC_VIEWER_STDOUT_WORLD);CHKERRQ(ierr);
 
   /*set value for vec u_old*/
   if(rank == 0)
   {
     value_vec = 0;
     ierr = VecSetValues(u_old, 1, &i, &value_vec, INSERT_VALUES);CHKERRQ(ierr);
-    for(i = 1; ii < n; ii++)
+    for(i = 1; i < n; i++)
     {
       xi = i*dx;
-      value_vec = exp(xi) + sin(xi*M_PI)*dt/rho/c;
+      value_vec = exp(xi) + dt*sin(xi*M_PI)*dt/rho/c;
 	    ierr = VecSetValues(u_old, 1, &i, &value_vec, INSERT_VALUES);CHKERRQ(ierr);
     }
     value_vec = 0;
@@ -91,6 +90,7 @@ int main(int argc,char **args)
 
   ierr = VecAssemblyBegin(u_old);CHKERRQ(ierr);
   ierr = VecAssemblyEnd(u_old);CHKERRQ(ierr);
+  ierr = VecView(u_old, PETSC_VIEWER_STDOUT_WORLD);CHKERRQ(ierr);
 
   ierr = KSPCreate(PETSC_COMM_WORLD,&ksp);CHKERRQ(ierr);
 
@@ -110,11 +110,12 @@ int main(int argc,char **args)
     ierr = KSPSolve(ksp,u_old,u);CHKERRQ(ierr);
     ierr = VecCopy(u_old,u);CHKERRQ(ierr); 
   }
+  ierr = PetscPrintf(PETSC_COMM_WORLD,"---------------------\n");CHKERRQ(ierr);
+  ierr = VecView(u_old, PETSC_VIEWER_STDOUT_WORLD);CHKERRQ(ierr);
+  // ierr = PetscPrintf(PETSC_COMM_WORLD,"The eigenvector is :\n");CHKERRQ(ierr);
+  // ierr = VecView(z, PETSC_VIEWER_STDOUT_WORLD);CHKERRQ(ierr);
 
-  ierr = PetscPrintf(PETSC_COMM_WORLD,"The eigenvector is :\n");CHKERRQ(ierr);
-  ierr = VecView(z, PETSC_VIEWER_STDOUT_WORLD);CHKERRQ(ierr);
-
-  ierr = PetscPrintf(PETSC_COMM_WORLD,"The eigenvector is : %g\n",(double)lambda);CHKERRQ(ierr);
+  ierr = PetscPrintf(PETSC_COMM_WORLD,"The program is finished\n");CHKERRQ(ierr);
 
   ierr = VecDestroy(&u_old);CHKERRQ(ierr); ierr = VecDestroy(&u);CHKERRQ(ierr);
   ierr = MatDestroy(&A);CHKERRQ(ierr);
