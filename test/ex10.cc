@@ -88,69 +88,69 @@ int main(int argc,char **args)
 
   /* PART 2:  Read in vector in binary format */
 
-//   /* Read new vector in binary format */
-//   ierr = PetscLogEventRegister("Read Vector",VEC_CLASSID,&VECTOR_READ);CHKERRQ(ierr);
-//   ierr = PetscLogEventBegin(VECTOR_READ,0,0,0,0);CHKERRQ(ierr);
-//   if (mpiio_use) {
-//     ierr = PetscPrintf(PETSC_COMM_WORLD,"Using MPI IO for reading the vector\n");CHKERRQ(ierr);
-//     ierr = PetscOptionsSetValue(NULL,"-viewer_binary_mpiio","");CHKERRQ(ierr);
-//   }
-//   if (isbinary) {
-//     ierr = PetscPrintf(PETSC_COMM_WORLD,"reading vector in binary from vector.dat ...\n");CHKERRQ(ierr);
-//     ierr = PetscViewerBinaryOpen(PETSC_COMM_WORLD,"vector.dat",FILE_MODE_READ,&viewer);CHKERRQ(ierr);
-//     ierr = PetscViewerBinarySetFlowControl(viewer,2);CHKERRQ(ierr);
-// #if defined(PETSC_HAVE_HDF5)
-//   } else if (ishdf5) {
-//     ierr = PetscPrintf(PETSC_COMM_WORLD,"reading vector in hdf5 from vector.dat ...\n");CHKERRQ(ierr);
-//     ierr = PetscViewerHDF5Open(PETSC_COMM_WORLD,"vector.dat",FILE_MODE_READ,&viewer);CHKERRQ(ierr);
-// #endif
-// #if defined(PETSC_HAVE_ADIOS)
-//   } else if (isadios) {
-//     ierr = PetscPrintf(PETSC_COMM_WORLD,"reading vector in adios from vector.dat ...\n");CHKERRQ(ierr);
-//     ierr = PetscViewerADIOSOpen(PETSC_COMM_WORLD,"vector.dat",FILE_MODE_READ,&viewer);CHKERRQ(ierr);
-// #endif
-//   }
-//   ierr = VecCreate(PETSC_COMM_WORLD,&u);CHKERRQ(ierr);
-//   ierr = PetscObjectSetName((PetscObject) u,"Test_Vec");CHKERRQ(ierr);
+  /* Read new vector in binary format */
+  ierr = PetscLogEventRegister("Read Vector",VEC_CLASSID,&VECTOR_READ);CHKERRQ(ierr);
+  ierr = PetscLogEventBegin(VECTOR_READ,0,0,0,0);CHKERRQ(ierr);
+  if (mpiio_use) {
+    ierr = PetscPrintf(PETSC_COMM_WORLD,"Using MPI IO for reading the vector\n");CHKERRQ(ierr);
+    ierr = PetscOptionsSetValue(NULL,"-viewer_binary_mpiio","");CHKERRQ(ierr);
+  }
+  if (isbinary) {
+    ierr = PetscPrintf(PETSC_COMM_WORLD,"reading vector in binary from vector.dat ...\n");CHKERRQ(ierr);
+    ierr = PetscViewerBinaryOpen(PETSC_COMM_WORLD,"vector.dat",FILE_MODE_READ,&viewer);CHKERRQ(ierr);
+    ierr = PetscViewerBinarySetFlowControl(viewer,2);CHKERRQ(ierr);
+#if defined(PETSC_HAVE_HDF5)
+  } else if (ishdf5) {
+    ierr = PetscPrintf(PETSC_COMM_WORLD,"reading vector in hdf5 from vector.dat ...\n");CHKERRQ(ierr);
+    ierr = PetscViewerHDF5Open(PETSC_COMM_WORLD,"vector.dat",FILE_MODE_READ,&viewer);CHKERRQ(ierr);
+#endif
+#if defined(PETSC_HAVE_ADIOS)
+  } else if (isadios) {
+    ierr = PetscPrintf(PETSC_COMM_WORLD,"reading vector in adios from vector.dat ...\n");CHKERRQ(ierr);
+    ierr = PetscViewerADIOSOpen(PETSC_COMM_WORLD,"vector.dat",FILE_MODE_READ,&viewer);CHKERRQ(ierr);
+#endif
+  }
+  ierr = VecCreate(PETSC_COMM_WORLD,&u);CHKERRQ(ierr);
+  ierr = PetscObjectSetName((PetscObject) u,"Test_Vec");CHKERRQ(ierr);
 
-//   if (vstage2) {
-//     ierr = PetscPrintf(PETSC_COMM_WORLD,"Setting vector sizes...\n");CHKERRQ(ierr);
-//     if (size > 1) {
-//       if (rank == 0) {
-//         lsize = m/size + size;
-//         ierr  = VecSetSizes(u,lsize,m);CHKERRQ(ierr);
-//       } else if (rank == size-1) {
-//         lsize = m/size - size;
-//         ierr  = VecSetSizes(u,lsize,m);CHKERRQ(ierr);
-//       } else {
-//         lsize = m/size;
-//         ierr  = VecSetSizes(u,lsize,m);CHKERRQ(ierr);
-//       }
-//     } else {
-//       ierr = VecSetSizes(u,m,m);CHKERRQ(ierr);
-//     }
-//   }
+  if (vstage2) {
+    ierr = PetscPrintf(PETSC_COMM_WORLD,"Setting vector sizes...\n");CHKERRQ(ierr);
+    if (size > 1) {
+      if (rank == 0) {
+        lsize = m/size + size;
+        ierr  = VecSetSizes(u,lsize,m);CHKERRQ(ierr);
+      } else if (rank == size-1) {
+        lsize = m/size - size;
+        ierr  = VecSetSizes(u,lsize,m);CHKERRQ(ierr);
+      } else {
+        lsize = m/size;
+        ierr  = VecSetSizes(u,lsize,m);CHKERRQ(ierr);
+      }
+    } else {
+      ierr = VecSetSizes(u,m,m);CHKERRQ(ierr);
+    }
+  }
 
-//   if (vstage3) {
-//     ierr = PetscPrintf(PETSC_COMM_WORLD,"Setting vector type...\n");CHKERRQ(ierr);
-//     ierr = VecSetType(u, VECMPI);CHKERRQ(ierr);
-//   }
-//   ierr = VecLoad(u,viewer);CHKERRQ(ierr);
-//   ierr = PetscViewerDestroy(&viewer);CHKERRQ(ierr);
-//   ierr = PetscLogEventEnd(VECTOR_READ,0,0,0,0);CHKERRQ(ierr);
-//   ierr = VecView(u,PETSC_VIEWER_STDOUT_WORLD);CHKERRQ(ierr);
-//   ierr = VecGetArrayRead(u,&values);CHKERRQ(ierr);
-//   ierr = VecGetLocalSize(u,&ldim);CHKERRQ(ierr);
-//   ierr = VecGetOwnershipRange(u,&low,NULL);CHKERRQ(ierr);
-//   for (i=0; i<ldim; i++) {
-//     if (values[i] != (PetscScalar)(i + low)) SETERRQ(PETSC_COMM_WORLD,PETSC_ERR_SUP,"Data check failed!\n");
-//   }
-//   ierr = VecRestoreArrayRead(u,&values);CHKERRQ(ierr);
+  if (vstage3) {
+    ierr = PetscPrintf(PETSC_COMM_WORLD,"Setting vector type...\n");CHKERRQ(ierr);
+    ierr = VecSetType(u, VECMPI);CHKERRQ(ierr);
+  }
+  ierr = VecLoad(u,viewer);CHKERRQ(ierr);
+  ierr = PetscViewerDestroy(&viewer);CHKERRQ(ierr);
+  ierr = PetscLogEventEnd(VECTOR_READ,0,0,0,0);CHKERRQ(ierr);
+  ierr = VecView(u,PETSC_VIEWER_STDOUT_WORLD);CHKERRQ(ierr);
+  ierr = VecGetArrayRead(u,&values);CHKERRQ(ierr);
+  ierr = VecGetLocalSize(u,&ldim);CHKERRQ(ierr);
+  ierr = VecGetOwnershipRange(u,&low,NULL);CHKERRQ(ierr);
+  for (i=0; i<ldim; i++) {
+    if (values[i] != (PetscScalar)(i + low)) SETERRQ(PETSC_COMM_WORLD,PETSC_ERR_SUP,"Data check failed!\n");
+  }
+  ierr = VecRestoreArrayRead(u,&values);CHKERRQ(ierr);
 
-//   /* Free data structures */
-//   ierr = VecDestroy(&u);CHKERRQ(ierr);
-//   ierr = PetscFinalize();
-//   return ierr;
+  /* Free data structures */
+  ierr = VecDestroy(&u);CHKERRQ(ierr);
+  ierr = PetscFinalize();
+  return ierr;
 }
 
 /*TEST

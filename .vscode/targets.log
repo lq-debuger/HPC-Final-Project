@@ -9,7 +9,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 make: *** No rule to make target `all'.  Stop.
 
 
-# Make data base, printed on Fri Jun  3 14:31:44 2022
+# Make data base, printed on Fri Jun  3 19:08:13 2022
 
 # Variables
 
@@ -26,7 +26,7 @@ IOZONEROOT = /share/base/iozone/3.482
 # environment
 VSCODE_AGENT_FOLDER = /work/mae-liq1/.vscode-server
 # makefile (from `Makefile', line 60)
-SRC := src/heat_1d.cc
+SRC := src/heat_1d.c
 # environment
 VSCODE_LOG_NATIVE = false
 # environment
@@ -98,6 +98,7 @@ LDFLAGS := -L/work/mae-liq1/lib/petsc-3.16.6/lib    -Wl,-rpath,/work/mae-liq1/li
 # makefile (from `Makefile', line 32)
 LDLIBS := -lpetsc   -lm
 # default
+ 
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver check-symlink
 # automatic
 %F = $(notdir $%)
@@ -259,14 +260,14 @@ BINARY_TYPE_HPC =
 
 # Directories
 
-# . (device 42, inode 178643804): 18 files, no impossibilities.
+# . (device 42, inode 178643804): 16 files, no impossibilities.
 # src (device 42, inode 178119157): 3 files, no impossibilities.
 
-# 21 files, no impossibilities in 2 directories.
+# 19 files, no impossibilities in 2 directories.
 
 # Implicit Rules
 
-%.o: %.cc
+%.o: %.c
 #  recipe to execute (from `Makefile', line 68):
 	$(COMPILE.c) $(CFLAGS_FINAL) $(OUTPUT_OPTION) $<
 
@@ -305,7 +306,6 @@ print:
 #  recipe to execute (from `Makefile', line 44):
 	@echo CC=$(CC)
 	@echo CXX=$(CXX)
- 
 	@echo FC=$(FC)
 	@echo CFLAGS=$(CFLAGS)
 	@echo CXXFLAGS=$(CXXFLAGS)
@@ -321,7 +321,7 @@ print:
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-06-01 19:20:53.843192
+#  Last modified 2022-06-03 19:08:12.501996
 #  File has been updated.
 #  Successfully updated.
 
@@ -355,13 +355,13 @@ clean:
 
 # No general (`VPATH' variable) search path.
 
-# # of strings in strcache: 0 / lookups = 43 / hits = 43
+# # of strings in strcache: 0 / lookups = 41 / hits = 41
 # # of strcache buffers: 1 (* 8176 B/buffer = 8176 B)
-# strcache used: total = 0 (240) / max = 0 / min = 8176 / avg = 0
-# strcache free: total = 0 (7936) / max = 0 / min = 8176 / avg = 0
+# strcache used: total = 0 (210) / max = 0 / min = 8176 / avg = 0
+# strcache free: total = 0 (7966) / max = 0 / min = 8176 / avg = 0
 
 # strcache hash-table stats:
-# Load=30/8192=0%, Rehash=0, Collisions=2/43=5%
-# Finished Make data base on Fri Jun  3 14:31:44 2022
+# Load=28/8192=0%, Rehash=0, Collisions=2/41=5%
+# Finished Make data base on Fri Jun  3 19:08:13 2022
 
  

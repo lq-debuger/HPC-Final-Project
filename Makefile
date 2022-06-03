@@ -57,14 +57,14 @@ print:
 
 # Files
 EXEC := final.out
-SRC := $(wildcard src/*.cc)
-OBJ := $(patsubst %.cc,%.o,$(SRC))
+SRC := $(wildcard src/*.c)
+OBJ := $(patsubst %.c,%.o,$(SRC))
 
 #Rules
 $(EXEC) : $(OBJ)
 	$(LINK.cc) $(LDLIBS) -o $@ $^
 	$(RM) $(OBJ)
-%.o : %.cc 
+%.o : %.c
 	$(COMPILE.c) $(CFLAGS_FINAL) $(OUTPUT_OPTION) $<
 
 .PHONY : clean

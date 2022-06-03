@@ -7,5 +7,5 @@ module purge
 module load hdf5/1.10.5-intel-2020.4
 module load mpi/intel/2018.4
 
-mpirun -np 2 ./test.out -hdf5 TRUE
+mpirun -np 2 ./test.out 
 

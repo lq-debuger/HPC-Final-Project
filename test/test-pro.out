@@ -1,14 +1,14 @@
 Sender: LSF System <lsfadmin@r01n31>
-Subject: Job 3814536: <mytest> in cluster <sustchpc> Done
+Subject: Job 3814628: <mytest> in cluster <sustchpc> Done
 
-Job <mytest> was submitted from host <login03> by user <mae-liq1> in cluster <sustchpc> at Fri Jun  3 14:26:29 2022.
-Job was executed on host(s) <3*r01n31>, in queue <ser>, as user <mae-liq1> in cluster <sustchpc> at Fri Jun  3 14:26:29 2022.
+Job <mytest> was submitted from host <login03> by user <mae-liq1> in cluster <sustchpc> at Fri Jun  3 15:43:18 2022.
+Job was executed on host(s) <3*r01n31>, in queue <ser>, as user <mae-liq1> in cluster <sustchpc> at Fri Jun  3 15:43:19 2022.
                             <2*r01n06>
 </work/mae-liq1> was used as the home directory.
 </work/mae-liq1/hpc/HPC-Final-Project/test> was used as the working directory.
-Started at Fri Jun  3 14:26:29 2022.
-Terminated at Fri Jun  3 14:26:32 2022.
-Results reported at Fri Jun  3 14:26:32 2022.
+Started at Fri Jun  3 15:43:19 2022.
+Terminated at Fri Jun  3 15:43:21 2022.
+Results reported at Fri Jun  3 15:43:21 2022.
 
 Your job looked like:
 
@@ -23,7 +23,7 @@ module purge
 module load hdf5/1.10.5-intel-2020.4
 module load mpi/intel/2018.4
 
-mpirun -np 2 ./test.out -hdf5 TRUE
+mpirun -np 2 ./test.out 
 
 
 ------------------------------------------------------------
@@ -32,44 +32,19 @@ Successfully completed.
 
 Resource usage summary:
 
-    CPU time :                                   0.33 sec.
-    Max Memory :                                 27 MB
-    Average Memory :                             27.00 MB
+    CPU time :                                   0.34 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
     Total Requested Memory :                     -
     Delta Memory :                               -
-    Max Swap :                                   4 MB
-    Max Processes :                              7
-    Max Threads :                                9
+    Max Swap :                                   -
+    Max Processes :                              -
+    Max Threads :                                -
     Run time :                                   1 sec.
     Turnaround time :                            3 sec.
 
 The output (if any) follows:
 
-Vec Object: Test_Vec 2 MPI processes
-  type: mpi
-Process [0]
-0.
-1.
-2.
-3.
-4.
-5.
-6.
-7.
-8.
-9.
-Process [1]
-10.
-11.
-12.
-13.
-14.
-15.
-16.
-17.
-18.
-19.
-writing vector in hdf5 to vector.dat ...
 
 
 PS:

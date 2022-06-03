@@ -1,7 +1,8 @@
-static char help[] = "Solves the transient heat equation with implicit scheme.\n\n";
+static char help[] = "Solves the transient heat equation with explicit and implicit scheme.\n\n";
 
 #include <stdio.h>
 #include <petscksp.h>
+#include <petscviewerhdf5.h>
 #include <math.h>
 
 int main(int argc,char **args)
@@ -10,7 +11,7 @@ int main(int argc,char **args)
   Mat            A;
   KSP            ksp;
   PC             pc;                  
-  PetscReal      kappa,dt,dx,rho,c,alpha,beta,zero;  
+  PetscReal      kappa,dt,dx,rho,c,alpha,beta,zero,pi;  
   PetscErrorCode ierr;
   PetscInt       i,n = 128,col[3],rstart,rend,rank,nlocal,steps,end;
   PetscScalar    value[3],value_vec=0.0,value_f=0.0,xi;
@@ -21,6 +22,7 @@ int main(int argc,char **args)
   dx   = 1.0/n;
   rho  = 1.0;
   c    = 1.0;
+  pi   = 4.0*atan(1);
   #ifdef IMPLICIT
   alpha= -(kappa*dt/rho/c/dx/dx);
   #elif EXPLICIT
@@ -90,11 +92,12 @@ int main(int argc,char **args)
     {
       xi        = i*dx;
       value_vec = exp(xi);
-      value_f   = sin(xi*M_PI)*dt/rho/c;
+      value_f   = sin(xi*pi)*dt/rho/c;
 	    ierr      = VecSetValues(u_old, 1, &i, &value_vec, INSERT_VALUES);CHKERRQ(ierr);
+      ierr      = VecSetValues(f, 1, &i, &value_f, INSERT_VALUES);CHKERRQ(ierr);
     }
     value_vec   = 0;
-    value_f     = sin((n-1)*dx*M_PI)*dt/rho/c;
+    value_f     = sin((n-1)*dx*pi)*dt/rho/c;
     ierr        = VecSetValues(u_old, 1, &i, &value_vec, INSERT_VALUES);CHKERRQ(ierr);
     ierr        = VecSetValues(f, 1, &i, &value_f, INSERT_VALUES);CHKERRQ(ierr);
   }
@@ -124,26 +127,34 @@ int main(int argc,char **args)
   {
     ierr = VecAXPY(u_old,1.0,f);CHKERRQ(ierr);
     ierr = KSPSolve(ksp,u_old,u);CHKERRQ(ierr);
+    if(rank == 0){
+      ierr = VecSetValues(u, 1, &rank, &zero, INSERT_VALUES);CHKERRQ(ierr);
+      ierr = VecSetValues(u, 1, &end, &zero, INSERT_VALUES);CHKERRQ(ierr);
+      ierr = VecAssemblyBegin(u);CHKERRQ(ierr);
+      ierr = VecAssemblyEnd(u);CHKERRQ(ierr);
+    }
     ierr = VecCopy(u,u_old);CHKERRQ(ierr); 
   }
   #endif
 
   #ifdef EXPLICIT
-  ierr = PetscPrintf(PETSC_COMM_WORLD,"It's plicit scheme\n");CHKERRQ(ierr);
+  ierr = PetscPrintf(PETSC_COMM_WORLD,"It's explicit scheme\n");CHKERRQ(ierr);
   for ( i = 0; i < steps; i++)
   {
     ierr = MatMult(A,u_old,u);CHKERRQ(ierr);
     ierr = VecAXPY(u,(PetscScalar)1.0,f);CHKERRQ(ierr);
-    ierr = VecCopy(u,u_old);CHKERRQ(ierr);
     if(rank == 0){
-      ierr = VecSetValues(u_old, 1, &rank, &zero, INSERT_VALUES);CHKERRQ(ierr);
-      ierr = VecSetValues(u_old, 1, &end, &zero, INSERT_VALUES);CHKERRQ(ierr);
+      ierr = VecSetValues(u, 1, &rank, &zero, INSERT_VALUES);CHKERRQ(ierr);
+      ierr = VecSetValues(u, 1, &end, &zero, INSERT_VALUES);CHKERRQ(ierr);
+      ierr = VecAssemblyBegin(u);CHKERRQ(ierr);
+      ierr = VecAssemblyEnd(u);CHKERRQ(ierr);
     }
+    ierr = VecCopy(u,u_old);CHKERRQ(ierr);
   }
   #endif
 
   ierr = PetscPrintf(PETSC_COMM_WORLD,"---------------------\n");CHKERRQ(ierr);
-  ierr = VecView(u, PETSC_VIEWER_STDOUT_WORLD);CHKERRQ(ierr);
+  ierr = VecView(u_old, PETSC_VIEWER_STDOUT_WORLD);CHKERRQ(ierr);
   // ierr = PetscPrintf(PETSC_COMM_WORLD,"The eigenvector is :\n");CHKERRQ(ierr);
   // ierr = VecView(z, PETSC_VIEWER_STDOUT_WORLD);CHKERRQ(ierr);
 
