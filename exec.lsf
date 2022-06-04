@@ -1,11 +1,11 @@
 #BSUB -J mytest
 #BSUB -q ser
-#BSUB -e final-pro.err
-#BSUB -o final-pro.out
+#BSUB -e final-pro-log.err
+#BSUB -o final-pro-log.out
 
 module purge
 module load mpi/intel/2018.4
 
-mpirun -np 1 ./final.out
+mpirun -np 1 ./final.out -restart 1
 
 #mpirun -np 2  ./final.out -ksp_type gmres -pc_type none -log_view
