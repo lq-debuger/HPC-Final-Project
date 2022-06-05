@@ -13,16 +13,16 @@ int main(int argc,char **args)
   KSP            ksp;
   PC             pc; 
   #endif                 
-  PetscReal      kappa,dt,dx,rho,c,alpha,beta,zero,pi;  
+  PetscReal      kappa,dt,dx,rho,c,alpha,beta,pi,norm=1.0,tol=1000.*PETSC_MACHINE_EPSILON;;  
   PetscErrorCode ierr;
-  PetscInt       i,n = 128,col[3],rstart,rend,rank,nlocal,steps,end,step;
+  PetscInt       i,n = 128,col[3],rstart,rend,rank,nlocal,steps,step;
   PetscScalar    value[3],value_vec=0.0,value_f=0.0,xi;
   PetscViewer    viewer;
   PetscBool      restart = PETSC_FALSE;
 
   kappa= 1.0;
   dt   = 0.00002;
-  steps= 1.0/dt;
+  steps= 100000;
   dx   = 1.0/n;
   rho  = 1.0;
   c    = 1.0;
@@ -34,9 +34,7 @@ int main(int argc,char **args)
   alpha= kappa*dt/rho/c/dx/dx;
   #endif
   beta = 1-2*alpha;
-  zero = 0.0;
   i    = 0;
-  end  = n-1;
 
   ierr = PetscInitialize(&argc,&args,(char*)0,help);if (ierr) return ierr;
   ierr = PetscOptionsGetInt(NULL,NULL,"-n",&n,NULL);CHKERRQ(ierr);
@@ -56,19 +54,20 @@ int main(int argc,char **args)
   ierr = MatSetSizes(A,nlocal,nlocal,n,n);CHKERRQ(ierr);
   ierr = MatSetFromOptions(A);CHKERRQ(ierr);
   ierr = MatSetUp(A);CHKERRQ(ierr);
+  ierr = PetscPrintf(PETSC_COMM_WORLD,"dt=%f,dx=%f,steps=%d\n",dt,dx,steps);CHKERRQ(ierr);
 
   /*set value for mat A*/
   if (!rstart) 
   {
     rstart = 1;
-    i      = 0; col[0] = 0; col[1] = 1; value[0] = beta; value[1] = alpha;
+    i      = 0; col[0] = 0; col[1] = 1; value[0] = beta; value[1] = 2.0*alpha;
     ierr   = MatSetValues(A,1,&i,2,col,value,INSERT_VALUES);CHKERRQ(ierr);
   }
   
   if (rend == n) 
   {
     rend = n-1;
-    i    = n-1; col[0] = n-2; col[1] = n-1; value[0] = alpha; value[1] = beta;
+    i    = n-1; col[0] = n-2; col[1] = n-1; value[0] = 2.0*alpha; value[1] = beta;
     ierr = MatSetValues(A,1,&i,2,col,value,INSERT_VALUES);CHKERRQ(ierr);
   }
 
@@ -82,12 +81,12 @@ int main(int argc,char **args)
   /* Assemble the matrix A*/
   ierr = MatAssemblyBegin(A,MAT_FINAL_ASSEMBLY);CHKERRQ(ierr);
   ierr = MatAssemblyEnd(A,MAT_FINAL_ASSEMBLY);CHKERRQ(ierr);
-  ierr = MatView(A, PETSC_VIEWER_STDOUT_WORLD);CHKERRQ(ierr);
+  // ierr = MatView(A, PETSC_VIEWER_STDOUT_WORLD);CHKERRQ(ierr);
 
   /*set value for vec u_old */
   if(restart)
   {
-    PetscPrintf(PETSC_COMM_WORLD,"Reading u_old from h5 ...\n");
+    ierr = PetscPrintf(PETSC_COMM_WORLD,"Reading u_old from h5 ...\n");CHKERRQ(ierr);
     #ifdef IMPLICIT
     ierr = PetscViewerHDF5Open(PETSC_COMM_WORLD,"./h5/implicit.h5",FILE_MODE_READ,&viewer);CHKERRQ(ierr);
     #endif
@@ -99,7 +98,7 @@ int main(int argc,char **args)
     ierr = PetscViewerDestroy(&viewer);CHKERRQ(ierr);
   }else
   {
-    PetscPrintf(PETSC_COMM_WORLD,"Do not read u_old from uold.h5 ...\n");
+    ierr = PetscPrintf(PETSC_COMM_WORLD,"Do not read u_old from uold.h5 ...\n");CHKERRQ(ierr);
     if(rank == 0)
     {
       i         = 0;
@@ -150,17 +149,12 @@ int main(int argc,char **args)
   ierr = PetscViewerHDF5Open(PETSC_COMM_WORLD,"./h5/implicit.h5",FILE_MODE_WRITE,&viewer);CHKERRQ(ierr);
   ierr = PetscObjectSetName((PetscObject) u, "restart_Vec");CHKERRQ(ierr);
   
-  for ( i = 0; i < steps; i++)
+  while(PetscAbsReal(norm)> tol && step < steps)
   {
     ierr = VecAXPY(u_old,1.0,f);CHKERRQ(ierr);
     ierr = KSPSolve(ksp,u_old,u);CHKERRQ(ierr);
-    if(rank == 0){
-      ierr = VecSetValues(u, 1, &rank, &zero, INSERT_VALUES);CHKERRQ(ierr);
-      ierr = VecSetValues(u, 1, &end, &zero, INSERT_VALUES);CHKERRQ(ierr);
-      ierr = VecAssemblyBegin(u);CHKERRQ(ierr);
-      ierr = VecAssemblyEnd(u);CHKERRQ(ierr);
-    }
     ierr = VecCopy(u,u_old);CHKERRQ(ierr);
+    ierr = VecNorm(u,NORM_2,&norm);CHKERRQ(ierr);
     /*write value of u to uold.h5*/ 
     if(0 == step % 10)
     {
@@ -175,19 +169,15 @@ int main(int argc,char **args)
   ierr = PetscPrintf(PETSC_COMM_WORLD,"It's explicit scheme\n");CHKERRQ(ierr);
   ierr = PetscViewerHDF5Open(PETSC_COMM_WORLD,"./h5/explicit.h5",FILE_MODE_WRITE,&viewer);;CHKERRQ(ierr);
   ierr = PetscObjectSetName((PetscObject) u, "restart_Vec");CHKERRQ(ierr);
-  for ( i = 0; i < steps; i++)
+  while(PetscAbsReal(norm) > tol && step < steps)
   {
+    ierr = PetscPrintf(PETSC_COMM_WORLD,"step=%d\n",step);CHKERRQ(ierr);
     ierr = MatMult(A,u_old,u);CHKERRQ(ierr);
     ierr = VecAXPY(u,(PetscScalar)1.0,f);CHKERRQ(ierr);
-    if(rank == 0){
-      ierr = VecSetValues(u, 1, &rank, &zero, INSERT_VALUES);CHKERRQ(ierr);
-      ierr = VecSetValues(u, 1, &end, &zero, INSERT_VALUES);CHKERRQ(ierr);
-      ierr = VecAssemblyBegin(u);CHKERRQ(ierr);
-      ierr = VecAssemblyEnd(u);CHKERRQ(ierr);
-    }
     ierr = VecCopy(u,u_old);CHKERRQ(ierr);
-    /*write value of u to uold.h5*/
-    if(0 == step % 10)
+    ierr = VecNorm(u,NORM_2,&norm);CHKERRQ(ierr);
+    /*write value of u to h5*/
+    if(step % 10 == 0)
     {
       ierr = VecView(u,viewer);CHKERRQ(ierr);
     }
@@ -197,7 +187,7 @@ int main(int argc,char **args)
   #endif
 
   ierr = PetscPrintf(PETSC_COMM_WORLD,"---------------------\n");CHKERRQ(ierr);
-  ierr = VecView(u_old, PETSC_VIEWER_STDOUT_WORLD);CHKERRQ(ierr);
+  // ierr = VecView(u_old, PETSC_VIEWER_STDOUT_WORLD);CHKERRQ(ierr);
   ierr = PetscPrintf(PETSC_COMM_WORLD,"The program is finished\n");CHKERRQ(ierr);
 
   ierr = VecDestroy(&u_old);CHKERRQ(ierr); 

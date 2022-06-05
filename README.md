@@ -4,10 +4,10 @@
 - run code:
 ```shell
 # explicit scheme
-make IMPLICIT=no final.out
+make IMPLICIT=no final.out -restart 0
 bsub< exec.lsf
 # implicit scheme
-make IMPLICIT=yes final.out
+make IMPLICIT=yes final.out -restart 0
 bsub< exec.lsf
 ```
 

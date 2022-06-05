@@ -65,6 +65,37 @@ With FDM, the transient heat equation in 1D can be dispersed into the following:
 \begin{equation}
     u^{n+1}=u^n+\frac{\kappa\Delta t}{\rho c\Delta x^2}(u_{i+1}^n-2u_i^n+u_{i-1}^n)+\frac{f\Delta t}{\rho c}
 \end{equation}
+When  x=0, x=1 ,$\kappa\frac{\partial u}{\partial x}=0$.
+For x=0,$\kappa\frac{u_1-u_{-1}}{2\Delta x}=0$,so $u_{-1}=u_1$;
+For x=1,$\kappa\frac{u_{n+1}-u_{n-1}}{2\Delta x}=0$,so $u_{n+1}=u_{n-1}$.
+
+
+So we can get a tri-diagonal system $AX+X1=b$:
+\begin{center}
+\begin{pmatrix}
+b & 2a & 0 & ... & 0 \\
+a & b & a \\
+ & & ... & \\
+ &  & a & b & a\\
+0 & 0 & ... & 2a & b
+\end{pmatrix}\begin{pmatrix}
+u_1^{n} \\
+u_2^{1} \\
+. \\
+. \\
+u_m^{n}
+\end{pmatrix}+$\frac{f\Delta t}{\rho c}$=\begin{pmatrix}
+u_1^{n+1} \\
+u_2^{n+1} \\
+. \\
+. \\
+u_m^{n+1}
+\end{pmatrix}
+\end{center}
+\begin{equation*}
+    a=\frac{\kappa\Delta t}{\rho c\Delta x^2}, b=1-2\frac{\kappa\Delta t}{\rho c\Delta x^2}
+\end{equation*}
+
 
 \subsection*{Implicit Euler method}
 From eq. \ref{partial time} and eq. \ref{partial u}, we can deduce the following:
@@ -78,11 +109,11 @@ From eq. \ref{partial time} and eq. \ref{partial u}, we can deduce the following
 So we can get a tri-diagonal system $AX=b$:
 \begin{center}
 \begin{pmatrix}
-b & a & 0 & ... & a \\
+b & 2a & 0 & ... & 0 \\
 a & b & a \\
  & & ... & \\
  &  & a & b & a\\
-a & 0 & ... & a & b
+0 & 0 & ... & 2a & b
 \end{pmatrix}\begin{pmatrix}
 u_1^{n+1} \\
 u_2^{n+1} \\

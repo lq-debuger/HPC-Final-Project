@@ -1,11 +1,26 @@
-#BSUB -J mytest
+#BSUB -J final-pro
 #BSUB -q ser
 #BSUB -e final-pro-log.err
 #BSUB -o final-pro-log.out
 
 module purge
+module load intel/2018.4
 module load mpi/intel/2018.4
 
-mpirun -np 2 ./final.out -restart 0 -log_view
+echo *-------------------- expicit----------------------------*
+make IMPLICIT=no final.out
+mpirun -np 4 ./final.out -restart 0 -log_view > ./log/explicit/n4.log
+mpirun -np 16 ./final.out -restart 0 -log_view > ./log/explicit/n16.log
+mpirun -np 32 ./final.out -restart 0 -log_view > ./log/explicit/n32.log
+mpirun -np 64 ./final.out -restart 0 -log_view > ./log/explicit/n32.log
+rm final.out
 
-#mpirun -np 2  ./final.out -ksp_type gmres -pc_type none -log_view
+
+#echo *-------------------- impicit----------------------------*
+make IMPLICIT=yes final.out
+mpirun -np 4 ./final.out -restart 0 -log_view > ./log/implicit/n4.log
+mpirun -np 16 ./final.out -restart 0 -log_view > ./log/implicit/n16.log
+mpirun -np 32 ./final.out -restart 0 -log_view > ./log/implicit/n32.log
+mpirun -np 64 ./final.out -restart 0 -log_view > ./log/implicit/n6.log
+rm final.out
+
