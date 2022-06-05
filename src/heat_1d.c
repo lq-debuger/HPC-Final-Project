@@ -79,7 +79,7 @@ int main(int argc,char **args)
     ierr   = MatSetValues(A,1,&i,3,col,value,INSERT_VALUES);CHKERRQ(ierr);
   }
 
-  /* Assemble the matrix and vec */
+  /* Assemble the matrix A*/
   ierr = MatAssemblyBegin(A,MAT_FINAL_ASSEMBLY);CHKERRQ(ierr);
   ierr = MatAssemblyEnd(A,MAT_FINAL_ASSEMBLY);CHKERRQ(ierr);
   ierr = MatView(A, PETSC_VIEWER_STDOUT_WORLD);CHKERRQ(ierr);
@@ -89,10 +89,10 @@ int main(int argc,char **args)
   {
     PetscPrintf(PETSC_COMM_WORLD,"Reading u_old from h5 ...\n");
     #ifdef IMPLICIT
-    ierr = PetscViewerHDF5Open(PETSC_COMM_WORLD,"implicit.h5",FILE_MODE_READ,&viewer);CHKERRQ(ierr);
+    ierr = PetscViewerHDF5Open(PETSC_COMM_WORLD,"./h5/implicit.h5",FILE_MODE_READ,&viewer);CHKERRQ(ierr);
     #endif
     #ifdef EXPLICIT
-    ierr = PetscViewerHDF5Open(PETSC_COMM_WORLD,"explicit.h5",FILE_MODE_READ,&viewer);CHKERRQ(ierr);
+    ierr = PetscViewerHDF5Open(PETSC_COMM_WORLD,"./h5/explicit.h5",FILE_MODE_READ,&viewer);CHKERRQ(ierr);
     #endif
     ierr = PetscObjectSetName((PetscObject) u_old, "restart_Vec");CHKERRQ(ierr);
     ierr = VecLoad(u_old,viewer);CHKERRQ(ierr);
@@ -118,7 +118,7 @@ int main(int argc,char **args)
   ierr = VecAssemblyBegin(u_old);CHKERRQ(ierr);
   ierr = VecAssemblyEnd(u_old);CHKERRQ(ierr);
 
-   /*set value for vec u_old f*/
+   /*set value for vec f*/
   if(rank == 0)
   {
     i         = 0; 
@@ -135,11 +135,11 @@ int main(int argc,char **args)
   ierr = VecAssemblyEnd(f);CHKERRQ(ierr);
 
   #ifdef IMPLICIT
+  /*create a linear solver */
   ierr = PetscPrintf(PETSC_COMM_WORLD,"It's implicit scheme\n");CHKERRQ(ierr);
   ierr = KSPCreate(PETSC_COMM_WORLD,&ksp);CHKERRQ(ierr);
 
   ierr = KSPSetOperators(ksp,A,A);CHKERRQ(ierr);
-
  
   ierr = KSPGetPC(ksp,&pc);CHKERRQ(ierr);
   ierr = PCSetType(pc,PCJACOBI);CHKERRQ(ierr);
@@ -147,7 +147,7 @@ int main(int argc,char **args)
 
   ierr = KSPSetFromOptions(ksp);CHKERRQ(ierr);
   ierr = PCSetFromOptions(pc);CHKERRQ(ierr);
-  ierr = PetscViewerHDF5Open(PETSC_COMM_WORLD,"implicit.h5",FILE_MODE_WRITE,&viewer);CHKERRQ(ierr);
+  ierr = PetscViewerHDF5Open(PETSC_COMM_WORLD,"./h5/implicit.h5",FILE_MODE_WRITE,&viewer);CHKERRQ(ierr);
   ierr = PetscObjectSetName((PetscObject) u, "restart_Vec");CHKERRQ(ierr);
   
   for ( i = 0; i < steps; i++)
@@ -173,7 +173,7 @@ int main(int argc,char **args)
 
   #ifdef EXPLICIT
   ierr = PetscPrintf(PETSC_COMM_WORLD,"It's explicit scheme\n");CHKERRQ(ierr);
-  ierr = PetscViewerHDF5Open(PETSC_COMM_WORLD,"explicit.h5",FILE_MODE_WRITE,&viewer);;CHKERRQ(ierr);
+  ierr = PetscViewerHDF5Open(PETSC_COMM_WORLD,"./h5/explicit.h5",FILE_MODE_WRITE,&viewer);;CHKERRQ(ierr);
   ierr = PetscObjectSetName((PetscObject) u, "restart_Vec");CHKERRQ(ierr);
   for ( i = 0; i < steps; i++)
   {

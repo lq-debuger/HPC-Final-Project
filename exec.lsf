@@ -6,6 +6,6 @@
 module purge
 module load mpi/intel/2018.4
 
-mpirun -np 1 ./final.out -restart 1
+mpirun -np 2 ./final.out -restart 0 -log_view
 
 #mpirun -np 2  ./final.out -ksp_type gmres -pc_type none -log_view
