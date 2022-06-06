@@ -163,6 +163,10 @@ int main(int argc,char **args)
     {
       ierr = VecView(u,viewer);CHKERRQ(ierr);
     }
+    if(10000 == step)
+    {
+      ierr = VecView(u_old, PETSC_VIEWER_STDOUT_WORLD);CHKERRQ(ierr);
+    }
     step++;
   }
   ierr = PetscPrintf(PETSC_COMM_WORLD,"step=%d\n",step);CHKERRQ(ierr);
@@ -183,6 +187,10 @@ int main(int argc,char **args)
     if(step % 10 == 0)
     {
       ierr = VecView(u,viewer);CHKERRQ(ierr);
+    }
+    if(10000 == step)
+    {
+      ierr = VecView(u_old, PETSC_VIEWER_STDOUT_WORLD);CHKERRQ(ierr);
     }
     step++;
   }
