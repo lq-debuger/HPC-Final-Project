@@ -1,6 +1,5 @@
 #BSUB -J final-pro
 #BSUB -q ser
-#BSUB -n 20
 #BSUB -e final-pro-log.err
 #BSUB -o final-pro-log.out
 

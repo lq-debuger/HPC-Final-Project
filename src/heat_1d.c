@@ -103,17 +103,16 @@ int main(int argc,char **args)
     ierr = PetscPrintf(PETSC_COMM_WORLD,"Do not read u_old from uold.h5 ...\n");CHKERRQ(ierr);
     if(rank == 0)
     {
-    //   i         = 0;
-    //   ierr      = VecSetValues(u_old, 1, &i, &value_vec, INSERT_VALUES);CHKERRQ(ierr);
+      value_vec = exp(0);
+      ierr      = VecSetValues(u_old, 1, &i, &value_vec, INSERT_VALUES);CHKERRQ(ierr);
       for(i = 0; i < n; i++)
       {
         xi        = i*dx;
-        // ierr = PetscPrintf(PETSC_COMM_WORLD,"%f\n",xi);CHKERRQ(ierr);
-        value_vec = exp(xi);
+        value_vec = sin(xi*pi);
         ierr      = VecSetValues(u_old, 1, &i, &value_vec, INSERT_VALUES);CHKERRQ(ierr);
       }
-      // value_vec   = 0;
-      // ierr        = VecSetValues(u_old, 1, &i, &value_vec, INSERT_VALUES);CHKERRQ(ierr);
+      value_vec   = exp(1.0);
+      ierr        = VecSetValues(u_old, 1, &i, &value_vec, INSERT_VALUES);CHKERRQ(ierr);
     }
   }
   

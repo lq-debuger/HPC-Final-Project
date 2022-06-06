@@ -1,15 +1,14 @@
-Sender: LSF System <lsfadmin@r01n19>
-Subject: Job 3820854: <final-pro> in cluster <sustchpc> Done
+Sender: LSF System <lsfadmin@r01n15>
+Subject: Job 3820884: <final-pro> in cluster <sustchpc> Done
 
-Job <final-pro> was submitted from host <login01> by user <mae-liq1> in cluster <sustchpc> at Mon Jun  6 17:34:57 2022.
-Job was executed on host(s) <8*r01n19>, in queue <ser>, as user <mae-liq1> in cluster <sustchpc> at Mon Jun  6 17:34:57 2022.
-                            <10*r01n12>
-                            <2*r01n10>
+Job <final-pro> was submitted from host <login01> by user <mae-liq1> in cluster <sustchpc> at Mon Jun  6 17:53:45 2022.
+Job was executed on host(s) <1*r01n15>, in queue <ser>, as user <mae-liq1> in cluster <sustchpc> at Mon Jun  6 17:53:46 2022.
+                            <4*r01n19>
 </work/mae-liq1> was used as the home directory.
 </work/mae-liq1/hpc/HPC-Final-Project> was used as the working directory.
-Started at Mon Jun  6 17:34:57 2022.
-Terminated at Mon Jun  6 17:35:30 2022.
-Results reported at Mon Jun  6 17:35:30 2022.
+Started at Mon Jun  6 17:53:46 2022.
+Terminated at Mon Jun  6 17:54:17 2022.
+Results reported at Mon Jun  6 17:54:17 2022.
 
 Your job looked like:
 
@@ -17,7 +16,6 @@ Your job looked like:
 # LSBATCH: User input
 #BSUB -J final-pro
 #BSUB -q ser
-#BSUB -n 20
 #BSUB -e final-pro-log.err
 #BSUB -o final-pro-log.out
 
@@ -68,16 +66,16 @@ Successfully completed.
 
 Resource usage summary:
 
-    CPU time :                                   3.00 sec.
-    Max Memory :                                 23 MB
-    Average Memory :                             23.00 MB
+    CPU time :                                   4.00 sec.
+    Max Memory :                                 25 MB
+    Average Memory :                             25.00 MB
     Total Requested Memory :                     -
     Delta Memory :                               -
-    Max Swap :                                   -
+    Max Swap :                                   4 MB
     Max Processes :                              7
     Max Threads :                                9
-    Run time :                                   33 sec.
-    Turnaround time :                            33 sec.
+    Run time :                                   31 sec.
+    Turnaround time :                            32 sec.
 
 The output (if any) follows:
 
