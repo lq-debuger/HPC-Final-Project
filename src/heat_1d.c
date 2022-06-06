@@ -7,7 +7,7 @@ static char help[] = "Solves the transient heat equation with explicit and impli
 
 int main(int argc,char **args)
 {
-  Vec            u_old, u,f;          
+  Vec            u_old, u,f,u_exact;          
   Mat            A;
   #ifdef IMPLICIT  
   KSP            ksp;
@@ -16,7 +16,7 @@ int main(int argc,char **args)
   PetscReal      kappa,dt,dx,rho,c,alpha,beta,pi,norm=1.0,tol=1000.*PETSC_MACHINE_EPSILON;;  
   PetscErrorCode ierr;
   PetscInt       i,n = 128,col[3],rstart,rend,rank,nlocal,steps,step;
-  PetscScalar    value[3],value_vec=0.0,value_f=0.0,xi;
+  PetscScalar    value[3],value_vec=0.0,value_f=0.0,vec_ue=0.0,xi;
   PetscViewer    viewer;
   PetscBool      restart = PETSC_FALSE;
 
@@ -38,6 +38,7 @@ int main(int argc,char **args)
   ierr = VecSetFromOptions(u_old);CHKERRQ(ierr);
   ierr = VecDuplicate(u_old,&u);CHKERRQ(ierr);
   ierr = VecDuplicate(u_old,&f);CHKERRQ(ierr);
+  ierr = VecDuplicate(u_old,&u_exact);CHKERRQ(ierr);
 
   ierr = VecGetOwnershipRange(u_old,&rstart,&rend);CHKERRQ(ierr);
   ierr = VecGetLocalSize(u_old,&nlocal);CHKERRQ(ierr);
@@ -120,7 +121,23 @@ int main(int argc,char **args)
   
   ierr = VecAssemblyBegin(u_old);CHKERRQ(ierr);
   ierr = VecAssemblyEnd(u_old);CHKERRQ(ierr);
+  ierr = PetscPrintf(PETSC_COMM_WORLD,"inital u is : \n");CHKERRQ(ierr);
   ierr = VecView(u_old, PETSC_VIEWER_STDOUT_WORLD);CHKERRQ(ierr);
+
+  /*get exact solution*/
+  if (rank == 0)
+  {
+    for (i = 0; i < n; i++)
+    {
+      xi     = i*dx;
+      vec_ue = sin(pi*xi)/pi/pi;
+      ierr   = VecSetValues(u_exact, 1, &i, &vec_ue, INSERT_VALUES);CHKERRQ(ierr);
+    }
+  }
+  ierr = VecAssemblyBegin(u_exact);CHKERRQ(ierr);
+  ierr = VecAssemblyEnd(u_exact);CHKERRQ(ierr);
+  ierr = PetscPrintf(PETSC_COMM_WORLD,"exact solution is : \n");CHKERRQ(ierr);
+  ierr = VecView(u_exact, PETSC_VIEWER_STDOUT_WORLD);CHKERRQ(ierr);
 
    /*set value for vec f*/
   if(rank == 0)
@@ -193,6 +210,7 @@ int main(int argc,char **args)
   #endif
 
   ierr = PetscPrintf(PETSC_COMM_WORLD,"---------------------\n");CHKERRQ(ierr);
+  ierr = PetscPrintf(PETSC_COMM_WORLD,"numerical result u is : \n");CHKERRQ(ierr);
   ierr = VecView(u_old, PETSC_VIEWER_STDOUT_WORLD);CHKERRQ(ierr);
   ierr = PetscPrintf(PETSC_COMM_WORLD,"The program is finished\n");CHKERRQ(ierr);
 

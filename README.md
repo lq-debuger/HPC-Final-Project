@@ -1,7 +1,6 @@
 # HPC-Final-Project
 
-- You can see the problem description in  doc/Problem.tex
-- run code:
+## Compile
 ```shell
 #$ explicit scheme
 make IMPLICIT=no final.out -restart 0
@@ -12,5 +11,11 @@ bsub< exec.lsf
 ## build options
 ```
 - If you want to start with the existing H5 file, add -restart 1 when compiling, otherwise add -restart 0
+
+## Document 
+- The problem description in  doc/Problem.tex
+- The report is in report/report.tex
+- Imgs and relative data are in plot
+- The calculting result is in log
 
 
