@@ -23,18 +23,9 @@ int main(int argc,char **args)
   kappa= 1.0;
   dt   = 0.00002;
   steps= 100000;
-  dx   = 1.0/n;
   rho  = 1.0;
   c    = 1.0;
   pi   = 4.0*atan(1);
-  step = 1;
-  #ifdef IMPLICIT
-  alpha= -(kappa*dt/rho/c/dx/dx);
-  #elif EXPLICIT
-  alpha= kappa*dt/rho/c/dx/dx;
-  #endif
-  beta = 1-2*alpha;
-  i    = 0;
 
   ierr = PetscInitialize(&argc,&args,(char*)0,help);if (ierr) return ierr;
   ierr = PetscOptionsGetInt(NULL,NULL,"-n",&n,NULL);CHKERRQ(ierr);
@@ -54,7 +45,17 @@ int main(int argc,char **args)
   ierr = MatSetSizes(A,nlocal,nlocal,n,n);CHKERRQ(ierr);
   ierr = MatSetFromOptions(A);CHKERRQ(ierr);
   ierr = MatSetUp(A);CHKERRQ(ierr);
-  ierr = PetscPrintf(PETSC_COMM_WORLD,"dt=%f,dx=%f,steps=%d\n",dt,dx,steps);CHKERRQ(ierr);
+
+  dx   = 1.0/n;
+  step = 1;
+  #ifdef IMPLICIT
+  alpha= -(kappa*dt/rho/c/dx/dx);
+  #elif EXPLICIT
+  alpha= kappa*dt/rho/c/dx/dx;
+  #endif
+  beta = 1-2*alpha;
+  i    = 0;
+  ierr = PetscPrintf(PETSC_COMM_WORLD,"n=%d,dt=%f,dx=%f,steps=%d,alpha=%f,beta=%f\n",n,dt,dx,steps,alpha,beta);CHKERRQ(ierr);
 
   /*set value for mat A*/
   if (!rstart) 
@@ -116,6 +117,7 @@ int main(int argc,char **args)
   
   ierr = VecAssemblyBegin(u_old);CHKERRQ(ierr);
   ierr = VecAssemblyEnd(u_old);CHKERRQ(ierr);
+  ierr = VecView(u_old, PETSC_VIEWER_STDOUT_WORLD);CHKERRQ(ierr);
 
    /*set value for vec f*/
   if(rank == 0)
@@ -162,6 +164,7 @@ int main(int argc,char **args)
     }
     step++;
   }
+  ierr = PetscPrintf(PETSC_COMM_WORLD,"step=%d\n",step);CHKERRQ(ierr);
   ierr = PetscViewerDestroy(&viewer);CHKERRQ(ierr);
   #endif
 
@@ -171,7 +174,6 @@ int main(int argc,char **args)
   ierr = PetscObjectSetName((PetscObject) u, "restart_Vec");CHKERRQ(ierr);
   while(PetscAbsReal(norm) > tol && step < steps)
   {
-    ierr = PetscPrintf(PETSC_COMM_WORLD,"step=%d\n",step);CHKERRQ(ierr);
     ierr = MatMult(A,u_old,u);CHKERRQ(ierr);
     ierr = VecAXPY(u,(PetscScalar)1.0,f);CHKERRQ(ierr);
     ierr = VecCopy(u,u_old);CHKERRQ(ierr);
@@ -183,11 +185,12 @@ int main(int argc,char **args)
     }
     step++;
   }
+  ierr = PetscPrintf(PETSC_COMM_WORLD,"step=%d\n",step);CHKERRQ(ierr);
   ierr = PetscViewerDestroy(&viewer);CHKERRQ(ierr);
   #endif
 
   ierr = PetscPrintf(PETSC_COMM_WORLD,"---------------------\n");CHKERRQ(ierr);
-  // ierr = VecView(u_old, PETSC_VIEWER_STDOUT_WORLD);CHKERRQ(ierr);
+  ierr = VecView(u_old, PETSC_VIEWER_STDOUT_WORLD);CHKERRQ(ierr);
   ierr = PetscPrintf(PETSC_COMM_WORLD,"The program is finished\n");CHKERRQ(ierr);
 
   ierr = VecDestroy(&u_old);CHKERRQ(ierr); 

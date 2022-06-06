@@ -9,7 +9,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 make: *** No rule to make target `all'.  Stop.
 
 
-# Make data base, printed on Sun Jun  5 21:36:10 2022
+# Make data base, printed on Mon Jun  6 08:46:48 2022
 
 # Variables
 
@@ -78,9 +78,9 @@ LESSOPEN = ||/usr/bin/lesspipe.sh %s
 # environment
 VSCODE_CWD = /work/mae-liq1
 # environment
-SSH_CONNECTION = 172.18.6.174 64729 10.11.2.3 22
+SSH_CONNECTION = 172.18.6.3 56383 10.11.2.2 22
 # environment
-PATH = /work/mae-liq1/.vscode-server/bin/c3511e6c69bb39013c4a4b7b9566ec1ca73fc4d5/bin/remote-cli:/opt/lenovo/onecli:/opt/ibm/lsf/10.1/linux3.10-glibc2.17-x86_64/etc:/opt/ibm/lsf/10.1/linux3.10-glibc2.17-x86_64/bin:/usr/lpp/mmfs/bin:/share/base/bin:/share/base/jube/2.2.1/bin:/share/base/ior/3.1.0/bin:/share/base/collectl/4.3.0/:/share/base/iozone/3.482/bin:/share/base/pdsh/2.33/bin:/usr/lib64/qt-3.3/bin:/opt/lenovo/onecli:/usr/lpp/mmfs/bin:/share/base/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:/work/mae-liq1/.local/bin:/work/mae-liq1/bin
+PATH = /work/mae-liq1/.vscode-server/bin/c3511e6c69bb39013c4a4b7b9566ec1ca73fc4d5/bin/remote-cli:/opt/lenovo/onecli:/opt/ibm/lsf/10.1/linux3.10-glibc2.17-x86_64/etc:/opt/ibm/lsf/10.1/linux3.10-glibc2.17-x86_64/bin:/usr/lpp/mmfs/bin:/share/base/bin:/share/base/jube/2.2.1/bin:/share/base/ior/3.1.0/bin:/share/base/collectl/4.3.0/:/share/base/iozone/3.482/bin:/share/base/pdsh/2.33/bin:/usr/lib64/qt-3.3/bin:/opt/lenovo/onecli:/usr/lpp/mmfs/bin:/share/base/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:/work/mae-liq1/.local/bin:/work/mae-liq1/bin:/work/mae-liq1/.local/bin:/work/mae-liq1/bin
 # environment
 QT_GRAPHICSSYSTEM_CHECKED = 1
 # environment
@@ -108,7 +108,7 @@ VSCODE_PIPE_LOGGING = true
 # environment
 PWD = /work/mae-liq1/hpc/HPC-Final-Project
 # environment
-VSCODE_IPC_HOOK_CLI = /run/user/2435/vscode-ipc-b67eca6b-d700-4d70-aad0-500c08570590.sock
+VSCODE_IPC_HOOK_CLI = /run/user/2435/vscode-ipc-96dc672a-6ed7-43fc-8795-3285a558426d.sock
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
@@ -136,7 +136,7 @@ VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # automatic
 ^D = $(patsubst %/,%,$(dir $^))
 # environment
-HOSTNAME = login03
+HOSTNAME = login02
 # environment
 MAKELEVEL := 0
 # makefile (from `Makefile', line 36)
@@ -154,7 +154,7 @@ OMP_NUM_THREADS = 1
 # makefile (from `Makefile', line 59)
 EXEC := final.out
 # environment
-XDG_SESSION_ID = 591917
+XDG_SESSION_ID = 70277
 # environment
 USER = mae-liq1
 # makefile (from `Makefile', line 24)
@@ -187,7 +187,7 @@ MAKEFLAGS = Rrqp
 # environment
 MFLAGS = -Rrqp
 # environment
-SSH_CLIENT = 172.18.6.174 64729 22
+SSH_CLIENT = 172.18.6.3 56383 22
 # environment
 MAIL = /var/spool/mail/mae-liq1
 # environment
@@ -259,10 +259,10 @@ BINARY_TYPE_HPC =
 
 # Directories
 
-# . (device 42, inode 178643804): 19 files, no impossibilities.
-# src (device 42, inode 177878107): 3 files, no impossibilities.
+# . (device 43, inode 178643804): 18 files, no impossibilities.
+# src (device 43, inode 177878107): 3 files, no impossibilities.
 
-# 22 files, no impossibilities in 2 directories.
+# 21 files, no impossibilities in 2 directories.
 
 # Implicit Rules
 
@@ -293,7 +293,6 @@ src/heat_1d.o:
 #  File has not been updated.
 
 # Not a target:
- 
 .SUFFIXES:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
@@ -319,6 +318,7 @@ print:
 	@echo CUDA_INCLUDE=$(CUDA_INCLUDE)
 
 # Not a target:
+ 
 Makefile:
 #  Implicit rule search has been done.
 #  Last modified 2022-06-05 14:25:41.766203
@@ -355,13 +355,13 @@ clean:
 
 # No general (`VPATH' variable) search path.
 
-# # of strings in strcache: 0 / lookups = 44 / hits = 44
+# # of strings in strcache: 0 / lookups = 43 / hits = 43
 # # of strcache buffers: 1 (* 8176 B/buffer = 8176 B)
-# strcache used: total = 0 (253) / max = 0 / min = 8176 / avg = 0
-# strcache free: total = 0 (7923) / max = 0 / min = 8176 / avg = 0
+# strcache used: total = 0 (249) / max = 0 / min = 8176 / avg = 0
+# strcache free: total = 0 (7927) / max = 0 / min = 8176 / avg = 0
 
 # strcache hash-table stats:
-# Load=31/8192=0%, Rehash=0, Collisions=2/44=5%
-# Finished Make data base on Sun Jun  5 21:36:10 2022
+# Load=31/8192=0%, Rehash=0, Collisions=2/43=5%
+# Finished Make data base on Mon Jun  6 08:46:48 2022
 
  
