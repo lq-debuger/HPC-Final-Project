@@ -8,13 +8,13 @@ module purge
 module load mpi/intel/2018.4
 
 echo *-------------------- expicit----------------------------*
-#make IMPLICIT=no final.out
-#mpirun -np 1 ./final.out -restart 0 -n 100 -log_view > ./log/explicit/n1.log
+make IMPLICIT=no final.out
+mpirun -np 1 ./final.out -restart 0 -n 100 -log_view > ./log/explicit/n1.log
 #mpirun -np 2 ./final.out -restart 0 -n 100 -log_view > ./log/explicit/n2.log
 #mpirun -np 4 ./final.out -restart 0 -n 100 -log_view > ./log/explicit/n4.log
 #mpirun -np 8 ./final.out -restart 0 -n 100 -log_view > ./log/explicit/n8.log
 #mpirun -np 16 ./final.out -restart 0 -n 100 -log_view > ./log/explicit/n16.log
-#rm final.out
+rm final.out
 
 # test parallelism
 #make IMPLICIT=no final.out
@@ -35,12 +35,12 @@ echo *-------------------- expicit----------------------------*
 
 
 #echo *-------------------- impicit----------------------------*
-make IMPLICIT=yes final.out
-mpirun -np 1 ./final.out -restart 0 -n 100 -log_view > ./log/implicit/n1.log
+#make IMPLICIT=yes final.out
+#mpirun -np 1 ./final.out -restart 0 -n 100 -log_view > ./log/implicit/n1.log
 #mpirun -np 2 ./final.out -restart 0 -n 100 -log_view > ./log/implicit/n2.log
 #mpirun -np 4 ./final.out -restart 0 -n 100 -log_view > ./log/implicit/n4.log
 #mpirun -np 8 ./final.out -restart 0 -n 100 -log_view > ./log/implicit/n8.log
 #mpirun -np 16 ./final.out -restart 0 -n 100 -log_view > ./log/implicit/n16.log
 ##mpirun -np 1 ./final.out -restart 0 -n 100 -ksp_type gmres -pc_type jacobi -ksp_view > ./log/explicit/n1-.log 2>&1
-rm final.out
+#rm final.out
 
