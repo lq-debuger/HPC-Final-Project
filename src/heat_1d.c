@@ -62,14 +62,14 @@ int main(int argc,char **args)
   if (!rstart) 
   {
     rstart = 1;
-    i      = 0; col[0] = 0; col[1] = 1; value[0] = beta; value[1] = 2.0*alpha;
+    i      = 0; col[0] = 0; col[1] = 1; value[0] = beta; value[1] = alpha;
     ierr   = MatSetValues(A,1,&i,2,col,value,INSERT_VALUES);CHKERRQ(ierr);
   }
   
   if (rend == n) 
   {
     rend = n-1;
-    i    = n-1; col[0] = n-2; col[1] = n-1; value[0] = 2.0*alpha; value[1] = beta;
+    i    = n-1; col[0] = n-2; col[1] = n-1; value[0] = alpha; value[1] = beta;
     ierr = MatSetValues(A,1,&i,2,col,value,INSERT_VALUES);CHKERRQ(ierr);
   }
 
@@ -100,20 +100,21 @@ int main(int argc,char **args)
     ierr = PetscViewerDestroy(&viewer);CHKERRQ(ierr);
   }else
   {
+    i    = 0;
     ierr = PetscPrintf(PETSC_COMM_WORLD,"Do not read u_old from uold.h5 ...\n");CHKERRQ(ierr);
     if(rank == 0)
     {
-    //   i         = 0;
-    //   ierr      = VecSetValues(u_old, 1, &i, &value_vec, INSERT_VALUES);CHKERRQ(ierr);
-      for(i = 0; i < n; i++)
+      value_vec = 0;
+      ierr      = VecSetValues(u_old, 1, &i, &value_vec, INSERT_VALUES);CHKERRQ(ierr);
+      for(i = 1; i < n-1; i++)
       {
         xi        = i*dx;
-        // ierr = PetscPrintf(PETSC_COMM_WORLD,"%f\n",xi);CHKERRQ(ierr);
-        value_vec = exp(xi);
+        // value_vec = exp(xi);
+        value_vec = sin(xi*pi);
         ierr      = VecSetValues(u_old, 1, &i, &value_vec, INSERT_VALUES);CHKERRQ(ierr);
       }
-      // value_vec   = 0;
-      // ierr        = VecSetValues(u_old, 1, &i, &value_vec, INSERT_VALUES);CHKERRQ(ierr);
+      value_vec   = 0;
+      ierr        = VecSetValues(u_old, 1, &i, &value_vec, INSERT_VALUES);CHKERRQ(ierr);
     }
   }
   
