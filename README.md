@@ -10,6 +10,7 @@ bsub< exec.lsf
 make IMPLICIT=yes final.out -restart 0
 bsub< exec.lsf
 ## build options
-- If you want to start with the existing H5 file, add -restart 1 when compiling, otherwise add -restart 0
 ```
+- If you want to start with the existing H5 file, add -restart 1 when compiling, otherwise add -restart 0
+
 

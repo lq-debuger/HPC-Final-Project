@@ -107,6 +107,7 @@ int main(int argc,char **args)
       for(i = 1; i < n-1; i++)
       {
         xi        = i*dx;
+        // ierr = PetscPrintf(PETSC_COMM_WORLD,"%f\n",xi);CHKERRQ(ierr);
         value_vec = exp(xi);
         ierr      = VecSetValues(u_old, 1, &i, &value_vec, INSERT_VALUES);CHKERRQ(ierr);
       }
