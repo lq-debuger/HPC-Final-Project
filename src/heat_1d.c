@@ -105,7 +105,7 @@ int main(int argc,char **args)
     {
       value_vec = exp(0);
       ierr      = VecSetValues(u_old, 1, &i, &value_vec, INSERT_VALUES);CHKERRQ(ierr);
-      for(i = 0; i < n; i++)
+      for(i = 1; i < n-1; i++)
       {
         xi        = i*dx;
         value_vec = sin(xi*pi);

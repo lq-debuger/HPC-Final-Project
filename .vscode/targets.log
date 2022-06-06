@@ -9,7 +9,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 make: *** No rule to make target `all'.  Stop.
 
 
-# Make data base, printed on Mon Jun  6 14:34:38 2022
+# Make data base, printed on Mon Jun  6 18:08:23 2022
 
 # Variables
 
@@ -104,7 +104,7 @@ VSCODE_PIPE_LOGGING = true
 # environment
 PWD = /work/mae-liq1/hpc/HPC-Final-Project
 # environment
-VSCODE_IPC_HOOK_CLI = /run/user/2435/vscode-ipc-348e3833-b299-4811-b0d8-030c5d2f6f2e.sock
+VSCODE_IPC_HOOK_CLI = /run/user/2435/vscode-ipc-62bb0071-beb1-4459-a1df-2311fd1f46d3.sock
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
@@ -301,7 +301,6 @@ print:
 	@echo CFLAGS=$(CFLAGS)
 	@echo CXXFLAGS=$(CXXFLAGS)
 	@echo FFLAGS=$(FFLAGS)
- 
 	@echo CPPFLAGS=$(CPPFLAGS)
 	@echo LDFLAGS=$(LDFLAGS)
 	@echo LDLIBS=$(LDLIBS)
@@ -350,10 +349,11 @@ clean:
 # # of strings in strcache: 0 / lookups = 43 / hits = 43
 # # of strcache buffers: 1 (* 8176 B/buffer = 8176 B)
 # strcache used: total = 0 (249) / max = 0 / min = 8176 / avg = 0
+ 
 # strcache free: total = 0 (7927) / max = 0 / min = 8176 / avg = 0
 
 # strcache hash-table stats:
 # Load=31/8192=0%, Rehash=0, Collisions=2/43=5%
-# Finished Make data base on Mon Jun  6 14:34:38 2022
+# Finished Make data base on Mon Jun  6 18:08:23 2022
 
  
