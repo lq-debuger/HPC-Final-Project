@@ -1,15 +1,14 @@
-Sender: LSF System <lsfadmin@r01n19>
-Subject: Job 3820854: <final-pro> in cluster <sustchpc> Done
+Sender: LSF System <lsfadmin@r01n23>
+Subject: Job 3821024: <final-pro> in cluster <sustchpc> Done
 
-Job <final-pro> was submitted from host <login01> by user <mae-liq1> in cluster <sustchpc> at Mon Jun  6 17:34:57 2022.
-Job was executed on host(s) <8*r01n19>, in queue <ser>, as user <mae-liq1> in cluster <sustchpc> at Mon Jun  6 17:34:57 2022.
-                            <10*r01n12>
+Job <final-pro> was submitted from host <login03> by user <mae-liq1> in cluster <sustchpc> at Mon Jun  6 19:38:11 2022.
+Job was executed on host(s) <18*r01n23>, in queue <ser>, as user <mae-liq1> in cluster <sustchpc> at Mon Jun  6 19:38:11 2022.
                             <2*r01n10>
 </work/mae-liq1> was used as the home directory.
 </work/mae-liq1/hpc/HPC-Final-Project> was used as the working directory.
-Started at Mon Jun  6 17:34:57 2022.
-Terminated at Mon Jun  6 17:35:30 2022.
-Results reported at Mon Jun  6 17:35:30 2022.
+Started at Mon Jun  6 19:38:11 2022.
+Terminated at Mon Jun  6 19:38:34 2022.
+Results reported at Mon Jun  6 19:38:34 2022.
 
 Your job looked like:
 
@@ -30,7 +29,6 @@ mpirun -np 1 ./final.out -restart 0 -n 100 -log_view > ./log/explicit/n1.log
 #mpirun -np 2 ./final.out -restart 0 -n 100 -log_view > ./log/explicit/n2.log
 #mpirun -np 4 ./final.out -restart 0 -n 100 -log_view > ./log/explicit/n4.log
 #mpirun -np 8 ./final.out -restart 0 -n 100 -log_view > ./log/explicit/n8.log
-#mpirun -np 16 ./final.out -restart 0 -n 100 -log_view > ./log/explicit/n16.log
 rm final.out
 
 # test parallelism
@@ -39,7 +37,6 @@ rm final.out
 #mpirun -np 2 ./final.out -restart 0 -n 1000 -log_view > ./log/explicit/n1000-2.log
 #mpirun -np 4 ./final.out -restart 0 -n 1000 -log_view > ./log/explicit/n1000-4.log
 #mpirun -np 8 ./final.out -restart 0 -n 1000 -log_view > ./log/explicit/n1000-8.log
-#mpirun -np 16 ./final.out -restart 0 -n 1000 -log_view > ./log/explicit/n1000-16.log
 #rm final.out
 
 #make IMPLICIT=no final.out
@@ -47,7 +44,6 @@ rm final.out
 #mpirun -np 2 ./final.out -restart 0 -n 8000 -log_view > ./log/explicit/n8000-2.log
 #mpirun -np 4 ./final.out -restart 0 -n 8000 -log_view > ./log/explicit/n8000-4.log
 #mpirun -np 8 ./final.out -restart 0 -n 8000 -log_view > ./log/explicit/n8000-8.log
-#mpirun -np 16 ./final.out -restart 0 -n 8000 -log_view > ./log/explicit/n8000-16.log
 #rm final.out
 
 
@@ -57,8 +53,7 @@ rm final.out
 #mpirun -np 2 ./final.out -restart 0 -n 100 -log_view > ./log/implicit/n2.log
 #mpirun -np 4 ./final.out -restart 0 -n 100 -log_view > ./log/implicit/n4.log
 #mpirun -np 8 ./final.out -restart 0 -n 100 -log_view > ./log/implicit/n8.log
-#mpirun -np 16 ./final.out -restart 0 -n 100 -log_view > ./log/implicit/n16.log
-##mpirun -np 1 ./final.out -restart 0 -n 100 -ksp_type gmres -pc_type jacobi -ksp_view > ./log/explicit/n1-.log 2>&1
+###mpirun -np 1 ./final.out -restart 0 -n 100 -ksp_type gmres -pc_type jacobi -ksp_view > ./log/explicit/n1-.log 2>&1
 #rm final.out
 
 
@@ -68,16 +63,16 @@ Successfully completed.
 
 Resource usage summary:
 
-    CPU time :                                   3.00 sec.
+    CPU time :                                   2.01 sec.
     Max Memory :                                 23 MB
-    Average Memory :                             23.00 MB
+    Average Memory :                             22.33 MB
     Total Requested Memory :                     -
     Delta Memory :                               -
     Max Swap :                                   -
-    Max Processes :                              7
+    Max Processes :                              8
     Max Threads :                                9
-    Run time :                                   33 sec.
-    Turnaround time :                            33 sec.
+    Run time :                                   22 sec.
+    Turnaround time :                            23 sec.
 
 The output (if any) follows:
 
