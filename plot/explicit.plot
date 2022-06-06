@@ -4,8 +4,8 @@ set xrange[0:1]
 set xtics 0,0.2,1.0 font ",20"
 set mxtics 5
 set xlabe "x" font ",25" offset 0,1,0
-set yrange[0.:5]
-set ytics 0,1,5 font ",20"
+set yrange[0.:1]
+set ytics 0,0.2,1 font ",20"
 set mytics 5
 set ylabel "u" font ",25" offset 1,-0.5,0
 set key box lw 2.0 font ',20'
