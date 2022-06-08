@@ -5,6 +5,7 @@
 
 module purge
 module load mpi/intel/2018.4
+module load valgrind/3.14.0
 
 #echo *-------------------- expicit----------------------------*
 #make IMPLICIT=no final.out
@@ -24,15 +25,15 @@ module load mpi/intel/2018.4
 #rm final.out
 
 #echo *-------------------- with different step size ----------------------------*
-make IMPLICIT=no final.out
+#make IMPLICIT=no final.out
 #mpirun -np 1 ./final.out -restart 0 -n 100 > ./log/explicit/n1-t0002.log
 #mpirun -np 1 ./final.out -restart 0 -n 100 > ./log/explicit/n1-t00015.log
 #mpirun -np 1 ./final.out -restart 0 -n 100  > ./log/explicit/n1-t00010.log
 #mpirun -np 1 ./final.out -restart 0 -n 100 > ./log/explicit/n1-t00005.log
 #mpirun -np 1 ./final.out -restart 0 -n 100 > ./log/explicit/n1-t00008.log
 #mpirun -np 1 ./final.out -restart 0 -n 100 > ./log/explicit/n1-t00007.log
-mpirun -np 1 ./final.out -restart 0 -n 100 > ./log/explicit/n1-t00006.log
-rm final.out
+#mpirun -np 1 ./final.out -restart 0 -n 100 > ./log/explicit/n1-t00006.log
+#rm final.out
 
 #echo *-------------------- impicit----------------------------*
 #make IMPLICIT=yes final.out
@@ -61,3 +62,12 @@ rm final.out
 #mpirun -np 1 ./final.out -restart 0 -n 100 > ./log/implicit/n1-t0000195.log
 #rm final.out
 
+#echo *-------------------- using valgrind to check the program ----------------------------*
+#-----expicit----#
+make IMPLICIT=no final.out
+valgrind mpirun -np 1 ./final.out -restart 0 -n 100 > ./log/explicit/memroycheck.log 2>&1
+rm final.out
+
+#make IMPLICIT=yes final.out
+#valgrind --leak-check=full mpirun -np 1 ./final.out -restart 0 -n 100 > ./log/implicit/memroycheck.log 2>&1
+#rm final.out

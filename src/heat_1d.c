@@ -221,6 +221,7 @@ int main(int argc,char **args)
   ierr = VecDestroy(&u_old);CHKERRQ(ierr); 
   ierr = VecDestroy(&u);CHKERRQ(ierr);
   ierr = VecDestroy(&f);CHKERRQ(ierr);
+  ierr = VecDestroy(&u_exact);CHKERRQ(ierr);
   // ierr = PetscViewerDestroy(&viewer);CHKERRQ(ierr);
   ierr = MatDestroy(&A);CHKERRQ(ierr);
   #ifdef IMPLICIT
