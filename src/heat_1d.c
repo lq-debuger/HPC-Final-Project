@@ -21,7 +21,11 @@ int main(int argc,char **args)
   PetscBool      restart = PETSC_FALSE;
 
   kappa= 1.0;
-  dt   = 0.00002;
+  // dt   = 0.00002;
+  // dt   = 0.000015;
+  // dt   = 0.000017;
+  // dt   = 0.000019;
+  dt   = 0.0000199;
   steps= 100000;
   // steps= 1000000;
   rho  = 1.0;

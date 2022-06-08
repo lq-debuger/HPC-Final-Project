@@ -14,12 +14,50 @@ module load mpi/intel/2018.4
 #mpirun -np 8 ./final.out -restart 0 -n 100 -log_view > ./log/explicit/n8.log
 #rm final.out
 
+#echo *-------------------- get explicit error ----------------------------*
+#make IMPLICIT=no final.out
+#mpirun -np 1 ./final.out -restart 0 -n 32 -log_view > ./log/explicit/n1-32.log
+#mpirun -np 1 ./final.out -restart 0 -n 64 -log_view > ./log/explicit/n1-64.log
+#mpirun -np 1 ./final.out -restart 0 -n 128 -log_view > ./log/explicit/n1-128.log
+#mpirun -np 1 ./final.out -restart 0 -n 256 -log_view > ./log/explicit/n1-256.log
+#mpirun -np 1 ./final.out -restart 0 -n 512 -log_view > ./log/explicit/n1-512.log
+#rm final.out
+
+#echo *-------------------- with different step size ----------------------------*
+make IMPLICIT=no final.out
+#mpirun -np 1 ./final.out -restart 0 -n 100 > ./log/explicit/n1-t0002.log
+#mpirun -np 1 ./final.out -restart 0 -n 100 > ./log/explicit/n1-t000015.log
+#mpirun -np 1 ./final.out -restart 0 -n 100 > ./log/explicit/n1-t000017.log
+#mpirun -np 1 ./final.out -restart 0 -n 100 > ./log/explicit/n1-t000019.log
+#mpirun -np 1 ./final.out -restart 0 -n 100 > ./log/explicit/n1-t0000195.log
+#mpirun -np 1 ./final.out -restart 0 -n 100 > ./log/explicit/n1-t0000198.log
+mpirun -np 1 ./final.out -restart 0 -n 100 > ./log/explicit/n1-t0000199.log
+rm final.out
+
 #echo *-------------------- impicit----------------------------*
-make IMPLICIT=yes final.out
+#make IMPLICIT=yes final.out
 #mpirun -np 1 ./final.out -restart 0 -n 100 -log_view > ./log/implicit/n1.log
 #mpirun -np 2 ./final.out -restart 0 -n 100 -log_view > ./log/implicit/n2.log
 #mpirun -np 4 ./final.out -restart 0 -n 100 -log_view > ./log/implicit/n4.log
 #mpirun -np 8 ./final.out -restart 0 -n 100 -log_view > ./log/implicit/n8.log
-mpirun -np 1 ./final.out -restart 0 -n 100 -ksp_type gmres -pc_type asm -log_view > ./log/implicit/n1-ksp.log 2>&1
-rm final.out
+#mpirun -np 1 ./final.out -restart 0 -n 100 -ksp_type gmres -pc_type asm -log_view > ./log/implicit/n1-ksp.log 2>&1
+#rm final.out
+
+#echo *-------------------- get implicit error ----------------------------*
+#make IMPLICIT=yes final.out
+#mpirun -np 1 ./final.out -restart 0 -n 32 -log_view > ./log/implicit/n1-32.log
+#mpirun -np 1 ./final.out -restart 0 -n 64 -log_view > ./log/implicit/n1-64.log
+#mpirun -np 1 ./final.out -restart 0 -n 128 -log_view > ./log/implicit/n1-128.log
+#mpirun -np 1 ./final.out -restart 0 -n 256 -log_view > ./log/implicit/n1-256.log
+#mpirun -np 1 ./final.out -restart 0 -n 512 -log_view > ./log/implicit/n1-512.log
+#rm final.out
+
+#echo *-------------------- with different step size ----------------------------*
+#make IMPLICIT=yes final.out
+#mpirun -np 1 ./final.out -restart 0 -n 100 > ./log/implicit/n1-t0002.log
+#mpirun -np 1 ./final.out -restart 0 -n 100 > ./log/implicit/n1-t000015.log
+#mpirun -np 1 ./final.out -restart 0 -n 100 > ./log/implicit/n1-t000017.log
+#mpirun -np 1 ./final.out -restart 0 -n 100 > ./log/implicit/n1-t000019.log
+#mpirun -np 1 ./final.out -restart 0 -n 100 > ./log/implicit/n1-t0000195.log
+#rm final.out
 

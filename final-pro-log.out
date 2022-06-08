@@ -1,14 +1,15 @@
-Sender: LSF System <lsfadmin@r01n23>
-Subject: Job 3821024: <final-pro> in cluster <sustchpc> Done
+Sender: LSF System <lsfadmin@r01n07>
+Subject: Job 3826539: <final-pro> in cluster <sustchpc> Done
 
-Job <final-pro> was submitted from host <login03> by user <mae-liq1> in cluster <sustchpc> at Mon Jun  6 19:38:11 2022.
-Job was executed on host(s) <18*r01n23>, in queue <ser>, as user <mae-liq1> in cluster <sustchpc> at Mon Jun  6 19:38:11 2022.
-                            <2*r01n10>
+Job <final-pro> was submitted from host <login03> by user <mae-liq1> in cluster <sustchpc> at Wed Jun  8 17:38:49 2022.
+Job was executed on host(s) <1*r01n07>, in queue <ser>, as user <mae-liq1> in cluster <sustchpc> at Wed Jun  8 17:38:50 2022.
+                            <2*r01n21>
+                            <2*r01n08>
 </work/mae-liq1> was used as the home directory.
 </work/mae-liq1/hpc/HPC-Final-Project> was used as the working directory.
-Started at Mon Jun  6 19:38:11 2022.
-Terminated at Mon Jun  6 19:38:34 2022.
-Results reported at Mon Jun  6 19:38:34 2022.
+Started at Wed Jun  8 17:38:50 2022.
+Terminated at Wed Jun  8 17:40:02 2022.
+Results reported at Wed Jun  8 17:40:02 2022.
 
 Your job looked like:
 
@@ -16,36 +17,34 @@ Your job looked like:
 # LSBATCH: User input
 #BSUB -J final-pro
 #BSUB -q ser
-#BSUB -n 20
 #BSUB -e final-pro-log.err
 #BSUB -o final-pro-log.out
 
 module purge
 module load mpi/intel/2018.4
 
-echo *-------------------- expicit----------------------------*
-make IMPLICIT=no final.out
-mpirun -np 1 ./final.out -restart 0 -n 100 -log_view > ./log/explicit/n1.log
+#echo *-------------------- expicit----------------------------*
+#make IMPLICIT=no final.out
+#mpirun -np 1 ./final.out -restart 0 -n 100 -log_view > ./log/explicit/n1.log
 #mpirun -np 2 ./final.out -restart 0 -n 100 -log_view > ./log/explicit/n2.log
 #mpirun -np 4 ./final.out -restart 0 -n 100 -log_view > ./log/explicit/n4.log
 #mpirun -np 8 ./final.out -restart 0 -n 100 -log_view > ./log/explicit/n8.log
+#rm final.out
+
+#echo *-------------------- get explicit error ----------------------------*
+#make IMPLICIT=no final.out
+#mpirun -np 1 ./final.out -restart 0 -n 32 -log_view > ./log/explicit/n1-32.log
+#mpirun -np 1 ./final.out -restart 0 -n 64 -log_view > ./log/explicit/n1-64.log
+#mpirun -np 1 ./final.out -restart 0 -n 128 -log_view > ./log/explicit/n1-128.log
+#mpirun -np 1 ./final.out -restart 0 -n 256 -log_view > ./log/explicit/n1-256.log
+#mpirun -np 1 ./final.out -restart 0 -n 512 -log_view > ./log/explicit/n1-512.log
+#rm final.out
+
+#echo *-------------------- with different step size ----------------------------*
+make IMPLICIT=no final.out
+#mpirun -np 1 ./final.out -restart 0 -n 100 > ./log/explicit/n1-t0002.log
+mpirun -np 1 ./final.out -restart 0 -n 100 > ./log/explicit/n1-t000015.log
 rm final.out
-
-# test parallelism
-#make IMPLICIT=no final.out
-#mpirun -np 1 ./final.out -restart 0 -n 1000 -log_view > ./log/explicit/n1000-1.log
-#mpirun -np 2 ./final.out -restart 0 -n 1000 -log_view > ./log/explicit/n1000-2.log
-#mpirun -np 4 ./final.out -restart 0 -n 1000 -log_view > ./log/explicit/n1000-4.log
-#mpirun -np 8 ./final.out -restart 0 -n 1000 -log_view > ./log/explicit/n1000-8.log
-#rm final.out
-
-#make IMPLICIT=no final.out
-#mpirun -np 1 ./final.out -restart 0 -n 8000 -log_view > ./log/explicit/n8000-1.log
-#mpirun -np 2 ./final.out -restart 0 -n 8000 -log_view > ./log/explicit/n8000-2.log
-#mpirun -np 4 ./final.out -restart 0 -n 8000 -log_view > ./log/explicit/n8000-4.log
-#mpirun -np 8 ./final.out -restart 0 -n 8000 -log_view > ./log/explicit/n8000-8.log
-#rm final.out
-
 
 #echo *-------------------- impicit----------------------------*
 #make IMPLICIT=yes final.out
@@ -53,31 +52,143 @@ rm final.out
 #mpirun -np 2 ./final.out -restart 0 -n 100 -log_view > ./log/implicit/n2.log
 #mpirun -np 4 ./final.out -restart 0 -n 100 -log_view > ./log/implicit/n4.log
 #mpirun -np 8 ./final.out -restart 0 -n 100 -log_view > ./log/implicit/n8.log
-###mpirun -np 1 ./final.out -restart 0 -n 100 -ksp_type gmres -pc_type jacobi -ksp_view > ./log/explicit/n1-.log 2>&1
+#mpirun -np 1 ./final.out -restart 0 -n 100 -ksp_type gmres -pc_type asm -log_view > ./log/implicit/n1-ksp.log 2>&1
 #rm final.out
 
+#echo *-------------------- get implicit error ----------------------------*
+#make IMPLICIT=yes final.out
+#mpirun -np 1 ./final.out -restart 0 -n 32 -log_view > ./log/implicit/n1-32.log
+#mpirun -np 1 ./final.out -restart 0 -n 64 -log_view > ./log/implicit/n1-64.log
+#mpirun -np 1 ./final.out -restart 0 -n 128 -log_view > ./log/implicit/n1-128.log
+#mpirun -np 1 ./final.out -restart 0 -n 256 -log_view > ./log/implicit/n1-256.log
+#mpirun -np 1 ./final.out -restart 0 -n 512 -log_view > ./log/implicit/n1-512.log
+#rm final.out
 
+#echo *-------------------- with different step size ----------------------------*
+
+(... more ...)
 ------------------------------------------------------------
 
 Successfully completed.
 
 Resource usage summary:
 
-    CPU time :                                   2.01 sec.
-    Max Memory :                                 23 MB
-    Average Memory :                             22.33 MB
+    CPU time :                                   7.00 sec.
+    Max Memory :                                 24 MB
+    Average Memory :                             20.40 MB
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              7
+    Max Threads :                                9
+    Run time :                                   72 sec.
+    Turnaround time :                            73 sec.
+
+The output (if any) follows:
+
+/share/intel/2018u4/compilers_and_libraries_2018.5.274/linux/mpi/intel64/bin/mpicc -fPIC -Wall -Wwrite-strings -Wno-strict-aliasing -Wno-unknown-pragmas -fstack-protector -fvisibility=hidden -O3 -march=native -mtune=native  -std=c99 -std=c99   -I/work/mae-liq1/lib/petsc-3.16.6/include    -c -DEXPLICIT -o src/heat_1d.o src/heat_1d.c
+/share/intel/2018u4/compilers_and_libraries_2018.5.274/linux/mpi/intel64/bin/mpicxx -Wall -Wwrite-strings -Wno-strict-aliasing -Wno-unknown-pragmas -fstack-protector -fvisibility=hidden -g -O  -fPIC -std=gnu++11 -std=c99   -I/work/mae-liq1/lib/petsc-3.16.6/include   -L/work/mae-liq1/lib/petsc-3.16.6/lib    -Wl,-rpath,/work/mae-liq1/lib/petsc-3.16.6/lib  -lpetsc   -lm -o final.out src/heat_1d.o
+rm -f src/heat_1d.o
+/share/intel/2018u4/compilers_and_libraries_2018.5.274/linux/mpi/intel64/bin/mpicc -fPIC -Wall -Wwrite-strings -Wno-strict-aliasing -Wno-unknown-pragmas -fstack-protector -fvisibility=hidden -O3 -march=native -mtune=native  -std=c99 -std=c99   -I/work/mae-liq1/lib/petsc-3.16.6/include    -c -DIMPLICIT -o src/heat_1d.o src/heat_1d.c
+/share/intel/2018u4/compilers_and_libraries_2018.5.274/linux/mpi/intel64/bin/mpicxx -Wall -Wwrite-strings -Wno-strict-aliasing -Wno-unknown-pragmas -fstack-protector -fvisibility=hidden -g -O  -fPIC -std=gnu++11 -std=c99   -I/work/mae-liq1/lib/petsc-3.16.6/include   -L/work/mae-liq1/lib/petsc-3.16.6/lib    -Wl,-rpath,/work/mae-liq1/lib/petsc-3.16.6/lib  -lpetsc   -lm -o final.out src/heat_1d.o
+rm -f src/heat_1d.o
+
+
+PS:
+
+Read file <final-pro-log.err> for stderr output of this job.
+
+Sender: LSF System <lsfadmin@r01n21>
+Subject: Job 3826564: <final-pro> in cluster <sustchpc> Done
+
+Job <final-pro> was submitted from host <login03> by user <mae-liq1> in cluster <sustchpc> at Wed Jun  8 17:41:18 2022.
+Job was executed on host(s) <2*r01n21>, in queue <ser>, as user <mae-liq1> in cluster <sustchpc> at Wed Jun  8 17:41:18 2022.
+                            <3*r01n08>
+</work/mae-liq1> was used as the home directory.
+</work/mae-liq1/hpc/HPC-Final-Project> was used as the working directory.
+Started at Wed Jun  8 17:41:18 2022.
+Terminated at Wed Jun  8 17:42:20 2022.
+Results reported at Wed Jun  8 17:42:20 2022.
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#BSUB -J final-pro
+#BSUB -q ser
+#BSUB -e final-pro-log.err
+#BSUB -o final-pro-log.out
+
+module purge
+module load mpi/intel/2018.4
+
+#echo *-------------------- expicit----------------------------*
+#make IMPLICIT=no final.out
+#mpirun -np 1 ./final.out -restart 0 -n 100 -log_view > ./log/explicit/n1.log
+#mpirun -np 2 ./final.out -restart 0 -n 100 -log_view > ./log/explicit/n2.log
+#mpirun -np 4 ./final.out -restart 0 -n 100 -log_view > ./log/explicit/n4.log
+#mpirun -np 8 ./final.out -restart 0 -n 100 -log_view > ./log/explicit/n8.log
+#rm final.out
+
+#echo *-------------------- get explicit error ----------------------------*
+#make IMPLICIT=no final.out
+#mpirun -np 1 ./final.out -restart 0 -n 32 -log_view > ./log/explicit/n1-32.log
+#mpirun -np 1 ./final.out -restart 0 -n 64 -log_view > ./log/explicit/n1-64.log
+#mpirun -np 1 ./final.out -restart 0 -n 128 -log_view > ./log/explicit/n1-128.log
+#mpirun -np 1 ./final.out -restart 0 -n 256 -log_view > ./log/explicit/n1-256.log
+#mpirun -np 1 ./final.out -restart 0 -n 512 -log_view > ./log/explicit/n1-512.log
+#rm final.out
+
+#echo *-------------------- with different step size ----------------------------*
+make IMPLICIT=no final.out
+#mpirun -np 1 ./final.out -restart 0 -n 100 > ./log/explicit/n1-t0002.log
+#mpirun -np 1 ./final.out -restart 0 -n 100 > ./log/explicit/n1-t000015.log
+mpirun -np 1 ./final.out -restart 0 -n 100 > ./log/explicit/n1-t000017.log
+rm final.out
+
+#echo *-------------------- impicit----------------------------*
+#make IMPLICIT=yes final.out
+#mpirun -np 1 ./final.out -restart 0 -n 100 -log_view > ./log/implicit/n1.log
+#mpirun -np 2 ./final.out -restart 0 -n 100 -log_view > ./log/implicit/n2.log
+#mpirun -np 4 ./final.out -restart 0 -n 100 -log_view > ./log/implicit/n4.log
+#mpirun -np 8 ./final.out -restart 0 -n 100 -log_view > ./log/implicit/n8.log
+#mpirun -np 1 ./final.out -restart 0 -n 100 -ksp_type gmres -pc_type asm -log_view > ./log/implicit/n1-ksp.log 2>&1
+#rm final.out
+
+#echo *-------------------- get implicit error ----------------------------*
+#make IMPLICIT=yes final.out
+#mpirun -np 1 ./final.out -restart 0 -n 32 -log_view > ./log/implicit/n1-32.log
+#mpirun -np 1 ./final.out -restart 0 -n 64 -log_view > ./log/implicit/n1-64.log
+#mpirun -np 1 ./final.out -restart 0 -n 128 -log_view > ./log/implicit/n1-128.log
+#mpirun -np 1 ./final.out -restart 0 -n 256 -log_view > ./log/implicit/n1-256.log
+#mpirun -np 1 ./final.out -restart 0 -n 512 -log_view > ./log/implicit/n1-512.log
+#rm final.out
+
+
+(... more ...)
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   7.00 sec.
+    Max Memory :                                 25 MB
+    Average Memory :                             22.22 MB
     Total Requested Memory :                     -
     Delta Memory :                               -
     Max Swap :                                   -
     Max Processes :                              8
     Max Threads :                                9
-    Run time :                                   22 sec.
-    Turnaround time :                            23 sec.
+    Run time :                                   61 sec.
+    Turnaround time :                            62 sec.
 
 The output (if any) follows:
 
-*-------------------- expicit----------------------------*
 /share/intel/2018u4/compilers_and_libraries_2018.5.274/linux/mpi/intel64/bin/mpicc -fPIC -Wall -Wwrite-strings -Wno-strict-aliasing -Wno-unknown-pragmas -fstack-protector -fvisibility=hidden -O3 -march=native -mtune=native  -std=c99 -std=c99   -I/work/mae-liq1/lib/petsc-3.16.6/include    -c -DEXPLICIT -o src/heat_1d.o src/heat_1d.c
+/share/intel/2018u4/compilers_and_libraries_2018.5.274/linux/mpi/intel64/bin/mpicxx -Wall -Wwrite-strings -Wno-strict-aliasing -Wno-unknown-pragmas -fstack-protector -fvisibility=hidden -g -O  -fPIC -std=gnu++11 -std=c99   -I/work/mae-liq1/lib/petsc-3.16.6/include   -L/work/mae-liq1/lib/petsc-3.16.6/lib    -Wl,-rpath,/work/mae-liq1/lib/petsc-3.16.6/lib  -lpetsc   -lm -o final.out src/heat_1d.o
+rm -f src/heat_1d.o
+/share/intel/2018u4/compilers_and_libraries_2018.5.274/linux/mpi/intel64/bin/mpicc -fPIC -Wall -Wwrite-strings -Wno-strict-aliasing -Wno-unknown-pragmas -fstack-protector -fvisibility=hidden -O3 -march=native -mtune=native  -std=c99 -std=c99   -I/work/mae-liq1/lib/petsc-3.16.6/include    -c -DIMPLICIT -o src/heat_1d.o src/heat_1d.c
 /share/intel/2018u4/compilers_and_libraries_2018.5.274/linux/mpi/intel64/bin/mpicxx -Wall -Wwrite-strings -Wno-strict-aliasing -Wno-unknown-pragmas -fstack-protector -fvisibility=hidden -g -O  -fPIC -std=gnu++11 -std=c99   -I/work/mae-liq1/lib/petsc-3.16.6/include   -L/work/mae-liq1/lib/petsc-3.16.6/lib    -Wl,-rpath,/work/mae-liq1/lib/petsc-3.16.6/lib  -lpetsc   -lm -o final.out src/heat_1d.o
 rm -f src/heat_1d.o
 
@@ -86,18 +197,16 @@ PS:
 
 Read file <final-pro-log.err> for stderr output of this job.
 
-Sender: LSF System <lsfadmin@r01n12>
-Subject: Job 3821054: <final-pro> in cluster <sustchpc> Done
+Sender: LSF System <lsfadmin@r01n17>
+Subject: Job 3826593: <final-pro> in cluster <sustchpc> Done
 
-Job <final-pro> was submitted from host <login03> by user <mae-liq1> in cluster <sustchpc> at Mon Jun  6 19:51:27 2022.
-Job was executed on host(s) <9*r01n12>, in queue <ser>, as user <mae-liq1> in cluster <sustchpc> at Mon Jun  6 19:51:28 2022.
-                            <10*r01n19>
-                            <1*r01n10>
+Job <final-pro> was submitted from host <login03> by user <mae-liq1> in cluster <sustchpc> at Wed Jun  8 17:44:00 2022.
+Job was executed on host(s) <5*r01n17>, in queue <ser>, as user <mae-liq1> in cluster <sustchpc> at Wed Jun  8 17:44:01 2022.
 </work/mae-liq1> was used as the home directory.
 </work/mae-liq1/hpc/HPC-Final-Project> was used as the working directory.
-Started at Mon Jun  6 19:51:28 2022.
-Terminated at Mon Jun  6 20:24:36 2022.
-Results reported at Mon Jun  6 20:24:36 2022.
+Started at Wed Jun  8 17:44:01 2022.
+Terminated at Wed Jun  8 17:45:00 2022.
+Results reported at Wed Jun  8 17:45:00 2022.
 
 Your job looked like:
 
@@ -105,51 +214,75 @@ Your job looked like:
 # LSBATCH: User input
 #BSUB -J final-pro
 #BSUB -q ser
-#BSUB -n 20
 #BSUB -e final-pro-log.err
 #BSUB -o final-pro-log.out
 
 module purge
 module load mpi/intel/2018.4
 
-echo *-------------------- expicit----------------------------*
+#echo *-------------------- expicit----------------------------*
+#make IMPLICIT=no final.out
+#mpirun -np 1 ./final.out -restart 0 -n 100 -log_view > ./log/explicit/n1.log
+#mpirun -np 2 ./final.out -restart 0 -n 100 -log_view > ./log/explicit/n2.log
+#mpirun -np 4 ./final.out -restart 0 -n 100 -log_view > ./log/explicit/n4.log
+#mpirun -np 8 ./final.out -restart 0 -n 100 -log_view > ./log/explicit/n8.log
+#rm final.out
+
+#echo *-------------------- get explicit error ----------------------------*
+#make IMPLICIT=no final.out
+#mpirun -np 1 ./final.out -restart 0 -n 32 -log_view > ./log/explicit/n1-32.log
+#mpirun -np 1 ./final.out -restart 0 -n 64 -log_view > ./log/explicit/n1-64.log
+#mpirun -np 1 ./final.out -restart 0 -n 128 -log_view > ./log/explicit/n1-128.log
+#mpirun -np 1 ./final.out -restart 0 -n 256 -log_view > ./log/explicit/n1-256.log
+#mpirun -np 1 ./final.out -restart 0 -n 512 -log_view > ./log/explicit/n1-512.log
+#rm final.out
+
+#echo *-------------------- with different step size ----------------------------*
 make IMPLICIT=no final.out
-mpirun -np 1 ./final.out -restart 0 -n 100 -log_view > ./log/explicit/n1.log
-mpirun -np 2 ./final.out -restart 0 -n 100 -log_view > ./log/explicit/n2.log
-mpirun -np 4 ./final.out -restart 0 -n 100 -log_view > ./log/explicit/n4.log
-mpirun -np 8 ./final.out -restart 0 -n 100 -log_view > ./log/explicit/n8.log
+#mpirun -np 1 ./final.out -restart 0 -n 100 > ./log/explicit/n1-t0002.log
+#mpirun -np 1 ./final.out -restart 0 -n 100 > ./log/explicit/n1-t000015.log
+#mpirun -np 1 ./final.out -restart 0 -n 100 > ./log/explicit/n1-t000017.log
+mpirun -np 1 ./final.out -restart 0 -n 100 > ./log/explicit/n1-t000019.log
 rm final.out
 
 #echo *-------------------- impicit----------------------------*
-make IMPLICIT=yes final.out
-mpirun -np 1 ./final.out -restart 0 -n 100 -log_view > ./log/implicit/n1.log
-mpirun -np 2 ./final.out -restart 0 -n 100 -log_view > ./log/implicit/n2.log
-mpirun -np 4 ./final.out -restart 0 -n 100 -log_view > ./log/implicit/n4.log
-mpirun -np 8 ./final.out -restart 0 -n 100 -log_view > ./log/implicit/n8.log
-mpirun -np 1 ./final.out -restart 0 -n 100 -ksp_type gmres -pc_type asm -ksp_view > ./log/explicit/n1-.log 2>&1
-rm final.out
+#make IMPLICIT=yes final.out
+#mpirun -np 1 ./final.out -restart 0 -n 100 -log_view > ./log/implicit/n1.log
+#mpirun -np 2 ./final.out -restart 0 -n 100 -log_view > ./log/implicit/n2.log
+#mpirun -np 4 ./final.out -restart 0 -n 100 -log_view > ./log/implicit/n4.log
+#mpirun -np 8 ./final.out -restart 0 -n 100 -log_view > ./log/implicit/n8.log
+#mpirun -np 1 ./final.out -restart 0 -n 100 -ksp_type gmres -pc_type asm -log_view > ./log/implicit/n1-ksp.log 2>&1
+#rm final.out
 
+#echo *-------------------- get implicit error ----------------------------*
+#make IMPLICIT=yes final.out
+#mpirun -np 1 ./final.out -restart 0 -n 32 -log_view > ./log/implicit/n1-32.log
+#mpirun -np 1 ./final.out -restart 0 -n 64 -log_view > ./log/implicit/n1-64.log
+#mpirun -np 1 ./final.out -restart 0 -n 128 -log_view > ./log/implicit/n1-128.log
+#mpirun -np 1 ./final.out -restart 0 -n 256 -log_view > ./log/implicit/n1-256.log
+#mpirun -np 1 ./final.out -restart 0 -n 512 -log_view > ./log/implicit/n1-512.log
+#rm final.out
 
+(... more ...)
 ------------------------------------------------------------
 
 Successfully completed.
 
 Resource usage summary:
 
-    CPU time :                                   3920.37 sec.
-    Max Memory :                                 82 MB
-    Average Memory :                             63.40 MB
+    CPU time :                                   8.00 sec.
+    Max Memory :                                 24 MB
+    Average Memory :                             22.12 MB
     Total Requested Memory :                     -
     Delta Memory :                               -
-    Max Swap :                                   33 MB
-    Max Processes :                              16
-    Max Threads :                                18
-    Run time :                                   1987 sec.
-    Turnaround time :                            1989 sec.
+    Max Swap :                                   -
+    Max Processes :                              8
+    Max Threads :                                10
+    Run time :                                   58 sec.
+    Turnaround time :                            60 sec.
 
 The output (if any) follows:
 
-*-------------------- expicit----------------------------*
 /share/intel/2018u4/compilers_and_libraries_2018.5.274/linux/mpi/intel64/bin/mpicc -fPIC -Wall -Wwrite-strings -Wno-strict-aliasing -Wno-unknown-pragmas -fstack-protector -fvisibility=hidden -O3 -march=native -mtune=native  -std=c99 -std=c99   -I/work/mae-liq1/lib/petsc-3.16.6/include    -c -DEXPLICIT -o src/heat_1d.o src/heat_1d.c
 /share/intel/2018u4/compilers_and_libraries_2018.5.274/linux/mpi/intel64/bin/mpicxx -Wall -Wwrite-strings -Wno-strict-aliasing -Wno-unknown-pragmas -fstack-protector -fvisibility=hidden -g -O  -fPIC -std=gnu++11 -std=c99   -I/work/mae-liq1/lib/petsc-3.16.6/include   -L/work/mae-liq1/lib/petsc-3.16.6/lib    -Wl,-rpath,/work/mae-liq1/lib/petsc-3.16.6/lib  -lpetsc   -lm -o final.out src/heat_1d.o
 rm -f src/heat_1d.o
@@ -162,16 +295,17 @@ PS:
 
 Read file <final-pro-log.err> for stderr output of this job.
 
-Sender: LSF System <lsfadmin@r01n12>
-Subject: Job 3821175: <final-pro> in cluster <sustchpc> Done
+Sender: LSF System <lsfadmin@r01n15>
+Subject: Job 3826643: <final-pro> in cluster <sustchpc> Done
 
-Job <final-pro> was submitted from host <login03> by user <mae-liq1> in cluster <sustchpc> at Mon Jun  6 20:29:40 2022.
-Job was executed on host(s) <5*r01n12>, in queue <ser>, as user <mae-liq1> in cluster <sustchpc> at Mon Jun  6 20:29:42 2022.
+Job <final-pro> was submitted from host <login03> by user <mae-liq1> in cluster <sustchpc> at Wed Jun  8 19:00:01 2022.
+Job was executed on host(s) <2*r01n15>, in queue <ser>, as user <mae-liq1> in cluster <sustchpc> at Wed Jun  8 19:00:02 2022.
+                            <3*r01n21>
 </work/mae-liq1> was used as the home directory.
 </work/mae-liq1/hpc/HPC-Final-Project> was used as the working directory.
-Started at Mon Jun  6 20:29:42 2022.
-Terminated at Mon Jun  6 20:29:46 2022.
-Results reported at Mon Jun  6 20:29:46 2022.
+Started at Wed Jun  8 19:00:02 2022.
+Terminated at Wed Jun  8 19:01:01 2022.
+Results reported at Wed Jun  8 19:01:01 2022.
 
 Your job looked like:
 
@@ -193,104 +327,64 @@ module load mpi/intel/2018.4
 #mpirun -np 8 ./final.out -restart 0 -n 100 -log_view > ./log/explicit/n8.log
 #rm final.out
 
-#echo *-------------------- impicit----------------------------*
-make IMPLICIT=yes final.out
-#mpirun -np 1 ./final.out -restart 0 -n 100 -log_view > ./log/implicit/n1.log
-#mpirun -np 2 ./final.out -restart 0 -n 100 -log_view > ./log/implicit/n2.log
-#mpirun -np 4 ./final.out -restart 0 -n 100 -log_view > ./log/implicit/n4.log
-#mpirun -np 8 ./final.out -restart 0 -n 100 -log_view > ./log/implicit/n8.log
-mpirun -np 1 ./final.out -restart 0 -n 100 -ksp_type gmres -pc_type -log_view asm -ksp_view > ./log/implicit/n1-ksp.log 2>&1
-rm final.out
-
-
-------------------------------------------------------------
-
-Successfully completed.
-
-Resource usage summary:
-
-    CPU time :                                   0.51 sec.
-    Max Memory :                                 10 MB
-    Average Memory :                             8.00 MB
-    Total Requested Memory :                     -
-    Delta Memory :                               -
-    Max Swap :                                   4 MB
-    Max Processes :                              9
-    Max Threads :                                10
-    Run time :                                   3 sec.
-    Turnaround time :                            6 sec.
-
-The output (if any) follows:
-
-/share/intel/2018u4/compilers_and_libraries_2018.5.274/linux/mpi/intel64/bin/mpicc -fPIC -Wall -Wwrite-strings -Wno-strict-aliasing -Wno-unknown-pragmas -fstack-protector -fvisibility=hidden -O3 -march=native -mtune=native  -std=c99 -std=c99   -I/work/mae-liq1/lib/petsc-3.16.6/include    -c -DIMPLICIT -o src/heat_1d.o src/heat_1d.c
-/share/intel/2018u4/compilers_and_libraries_2018.5.274/linux/mpi/intel64/bin/mpicxx -Wall -Wwrite-strings -Wno-strict-aliasing -Wno-unknown-pragmas -fstack-protector -fvisibility=hidden -g -O  -fPIC -std=gnu++11 -std=c99   -I/work/mae-liq1/lib/petsc-3.16.6/include   -L/work/mae-liq1/lib/petsc-3.16.6/lib    -Wl,-rpath,/work/mae-liq1/lib/petsc-3.16.6/lib  -lpetsc   -lm -o final.out src/heat_1d.o
-rm -f src/heat_1d.o
-
-
-PS:
-
-Read file <final-pro-log.err> for stderr output of this job.
-
-Sender: LSF System <lsfadmin@r01n12>
-Subject: Job 3821178: <final-pro> in cluster <sustchpc> Done
-
-Job <final-pro> was submitted from host <login03> by user <mae-liq1> in cluster <sustchpc> at Mon Jun  6 20:30:49 2022.
-Job was executed on host(s) <5*r01n12>, in queue <ser>, as user <mae-liq1> in cluster <sustchpc> at Mon Jun  6 20:30:50 2022.
-</work/mae-liq1> was used as the home directory.
-</work/mae-liq1/hpc/HPC-Final-Project> was used as the working directory.
-Started at Mon Jun  6 20:30:50 2022.
-Terminated at Mon Jun  6 20:31:47 2022.
-Results reported at Mon Jun  6 20:31:47 2022.
-
-Your job looked like:
-
-------------------------------------------------------------
-# LSBATCH: User input
-#BSUB -J final-pro
-#BSUB -q ser
-#BSUB -e final-pro-log.err
-#BSUB -o final-pro-log.out
-
-module purge
-module load mpi/intel/2018.4
-
-#echo *-------------------- expicit----------------------------*
+#echo *-------------------- get explicit error ----------------------------*
 #make IMPLICIT=no final.out
-#mpirun -np 1 ./final.out -restart 0 -n 100 -log_view > ./log/explicit/n1.log
-#mpirun -np 2 ./final.out -restart 0 -n 100 -log_view > ./log/explicit/n2.log
-#mpirun -np 4 ./final.out -restart 0 -n 100 -log_view > ./log/explicit/n4.log
-#mpirun -np 8 ./final.out -restart 0 -n 100 -log_view > ./log/explicit/n8.log
+#mpirun -np 1 ./final.out -restart 0 -n 32 -log_view > ./log/explicit/n1-32.log
+#mpirun -np 1 ./final.out -restart 0 -n 64 -log_view > ./log/explicit/n1-64.log
+#mpirun -np 1 ./final.out -restart 0 -n 128 -log_view > ./log/explicit/n1-128.log
+#mpirun -np 1 ./final.out -restart 0 -n 256 -log_view > ./log/explicit/n1-256.log
+#mpirun -np 1 ./final.out -restart 0 -n 512 -log_view > ./log/explicit/n1-512.log
 #rm final.out
 
+#echo *-------------------- with different step size ----------------------------*
+make IMPLICIT=no final.out
+#mpirun -np 1 ./final.out -restart 0 -n 100 > ./log/explicit/n1-t0002.log
+#mpirun -np 1 ./final.out -restart 0 -n 100 > ./log/explicit/n1-t000015.log
+#mpirun -np 1 ./final.out -restart 0 -n 100 > ./log/explicit/n1-t000017.log
+#mpirun -np 1 ./final.out -restart 0 -n 100 > ./log/explicit/n1-t000019.log
+mpirun -np 1 ./final.out -restart 0 -n 100 > ./log/explicit/n1-t0000195.log
+rm final.out
+
 #echo *-------------------- impicit----------------------------*
-make IMPLICIT=yes final.out
+#make IMPLICIT=yes final.out
 #mpirun -np 1 ./final.out -restart 0 -n 100 -log_view > ./log/implicit/n1.log
 #mpirun -np 2 ./final.out -restart 0 -n 100 -log_view > ./log/implicit/n2.log
 #mpirun -np 4 ./final.out -restart 0 -n 100 -log_view > ./log/implicit/n4.log
 #mpirun -np 8 ./final.out -restart 0 -n 100 -log_view > ./log/implicit/n8.log
-mpirun -np 1 ./final.out -restart 0 -n 100 -ksp_type gmres -pc_type asm -log_view -ksp_view > ./log/implicit/n1-ksp.log 2>&1
-rm final.out
+#mpirun -np 1 ./final.out -restart 0 -n 100 -ksp_type gmres -pc_type asm -log_view > ./log/implicit/n1-ksp.log 2>&1
+#rm final.out
 
+#echo *-------------------- get implicit error ----------------------------*
+#make IMPLICIT=yes final.out
+#mpirun -np 1 ./final.out -restart 0 -n 32 -log_view > ./log/implicit/n1-32.log
+#mpirun -np 1 ./final.out -restart 0 -n 64 -log_view > ./log/implicit/n1-64.log
+#mpirun -np 1 ./final.out -restart 0 -n 128 -log_view > ./log/implicit/n1-128.log
+#mpirun -np 1 ./final.out -restart 0 -n 256 -log_view > ./log/implicit/n1-256.log
+#mpirun -np 1 ./final.out -restart 0 -n 512 -log_view > ./log/implicit/n1-512.log
 
+(... more ...)
 ------------------------------------------------------------
 
 Successfully completed.
 
 Resource usage summary:
 
-    CPU time :                                   29.56 sec.
-    Max Memory :                                 24 MB
-    Average Memory :                             21.62 MB
+    CPU time :                                   6.27 sec.
+    Max Memory :                                 25 MB
+    Average Memory :                             21.57 MB
     Total Requested Memory :                     -
     Delta Memory :                               -
-    Max Swap :                                   4 MB
-    Max Processes :                              8
+    Max Swap :                                   -
+    Max Processes :                              7
     Max Threads :                                9
-    Run time :                                   56 sec.
-    Turnaround time :                            58 sec.
+    Run time :                                   58 sec.
+    Turnaround time :                            60 sec.
 
 The output (if any) follows:
 
+/share/intel/2018u4/compilers_and_libraries_2018.5.274/linux/mpi/intel64/bin/mpicc -fPIC -Wall -Wwrite-strings -Wno-strict-aliasing -Wno-unknown-pragmas -fstack-protector -fvisibility=hidden -O3 -march=native -mtune=native  -std=c99 -std=c99   -I/work/mae-liq1/lib/petsc-3.16.6/include    -c -DEXPLICIT -o src/heat_1d.o src/heat_1d.c
+/share/intel/2018u4/compilers_and_libraries_2018.5.274/linux/mpi/intel64/bin/mpicxx -Wall -Wwrite-strings -Wno-strict-aliasing -Wno-unknown-pragmas -fstack-protector -fvisibility=hidden -g -O  -fPIC -std=gnu++11 -std=c99   -I/work/mae-liq1/lib/petsc-3.16.6/include   -L/work/mae-liq1/lib/petsc-3.16.6/lib    -Wl,-rpath,/work/mae-liq1/lib/petsc-3.16.6/lib  -lpetsc   -lm -o final.out src/heat_1d.o
+rm -f src/heat_1d.o
 /share/intel/2018u4/compilers_and_libraries_2018.5.274/linux/mpi/intel64/bin/mpicc -fPIC -Wall -Wwrite-strings -Wno-strict-aliasing -Wno-unknown-pragmas -fstack-protector -fvisibility=hidden -O3 -march=native -mtune=native  -std=c99 -std=c99   -I/work/mae-liq1/lib/petsc-3.16.6/include    -c -DIMPLICIT -o src/heat_1d.o src/heat_1d.c
 /share/intel/2018u4/compilers_and_libraries_2018.5.274/linux/mpi/intel64/bin/mpicxx -Wall -Wwrite-strings -Wno-strict-aliasing -Wno-unknown-pragmas -fstack-protector -fvisibility=hidden -g -O  -fPIC -std=gnu++11 -std=c99   -I/work/mae-liq1/lib/petsc-3.16.6/include   -L/work/mae-liq1/lib/petsc-3.16.6/lib    -Wl,-rpath,/work/mae-liq1/lib/petsc-3.16.6/lib  -lpetsc   -lm -o final.out src/heat_1d.o
 rm -f src/heat_1d.o
@@ -300,16 +394,17 @@ PS:
 
 Read file <final-pro-log.err> for stderr output of this job.
 
-Sender: LSF System <lsfadmin@r01n12>
-Subject: Job 3821202: <final-pro> in cluster <sustchpc> Done
+Sender: LSF System <lsfadmin@r01n15>
+Subject: Job 3826646: <final-pro> in cluster <sustchpc> Done
 
-Job <final-pro> was submitted from host <login03> by user <mae-liq1> in cluster <sustchpc> at Mon Jun  6 20:34:00 2022.
-Job was executed on host(s) <5*r01n12>, in queue <ser>, as user <mae-liq1> in cluster <sustchpc> at Mon Jun  6 20:34:00 2022.
+Job <final-pro> was submitted from host <login03> by user <mae-liq1> in cluster <sustchpc> at Wed Jun  8 19:03:15 2022.
+Job was executed on host(s) <2*r01n15>, in queue <ser>, as user <mae-liq1> in cluster <sustchpc> at Wed Jun  8 19:03:17 2022.
+                            <3*r01n21>
 </work/mae-liq1> was used as the home directory.
 </work/mae-liq1/hpc/HPC-Final-Project> was used as the working directory.
-Started at Mon Jun  6 20:34:00 2022.
-Terminated at Mon Jun  6 20:34:40 2022.
-Results reported at Mon Jun  6 20:34:40 2022.
+Started at Wed Jun  8 19:03:17 2022.
+Terminated at Wed Jun  8 19:03:45 2022.
+Results reported at Wed Jun  8 19:03:45 2022.
 
 Your job looked like:
 
@@ -331,36 +426,158 @@ module load mpi/intel/2018.4
 #mpirun -np 8 ./final.out -restart 0 -n 100 -log_view > ./log/explicit/n8.log
 #rm final.out
 
+#echo *-------------------- get explicit error ----------------------------*
+#make IMPLICIT=no final.out
+#mpirun -np 1 ./final.out -restart 0 -n 32 -log_view > ./log/explicit/n1-32.log
+#mpirun -np 1 ./final.out -restart 0 -n 64 -log_view > ./log/explicit/n1-64.log
+#mpirun -np 1 ./final.out -restart 0 -n 128 -log_view > ./log/explicit/n1-128.log
+#mpirun -np 1 ./final.out -restart 0 -n 256 -log_view > ./log/explicit/n1-256.log
+#mpirun -np 1 ./final.out -restart 0 -n 512 -log_view > ./log/explicit/n1-512.log
+#rm final.out
+
+#echo *-------------------- with different step size ----------------------------*
+make IMPLICIT=no final.out
+#mpirun -np 1 ./final.out -restart 0 -n 100 > ./log/explicit/n1-t0002.log
+#mpirun -np 1 ./final.out -restart 0 -n 100 > ./log/explicit/n1-t000015.log
+#mpirun -np 1 ./final.out -restart 0 -n 100 > ./log/explicit/n1-t000017.log
+#mpirun -np 1 ./final.out -restart 0 -n 100 > ./log/explicit/n1-t000019.log
+#mpirun -np 1 ./final.out -restart 0 -n 100 > ./log/explicit/n1-t0000195.log
+mpirun -np 1 ./final.out -restart 0 -n 100 > ./log/explicit/n1-t0000198.log
+rm final.out
+
 #echo *-------------------- impicit----------------------------*
-make IMPLICIT=yes final.out
+#make IMPLICIT=yes final.out
 #mpirun -np 1 ./final.out -restart 0 -n 100 -log_view > ./log/implicit/n1.log
 #mpirun -np 2 ./final.out -restart 0 -n 100 -log_view > ./log/implicit/n2.log
 #mpirun -np 4 ./final.out -restart 0 -n 100 -log_view > ./log/implicit/n4.log
 #mpirun -np 8 ./final.out -restart 0 -n 100 -log_view > ./log/implicit/n8.log
-mpirun -np 1 ./final.out -restart 0 -n 100 -ksp_type gmres -pc_type asm -log_view > ./log/implicit/n1-ksp.log 2>&1
-rm final.out
+#mpirun -np 1 ./final.out -restart 0 -n 100 -ksp_type gmres -pc_type asm -log_view > ./log/implicit/n1-ksp.log 2>&1
+#rm final.out
 
+#echo *-------------------- get implicit error ----------------------------*
+#make IMPLICIT=yes final.out
+#mpirun -np 1 ./final.out -restart 0 -n 32 -log_view > ./log/implicit/n1-32.log
+#mpirun -np 1 ./final.out -restart 0 -n 64 -log_view > ./log/implicit/n1-64.log
+#mpirun -np 1 ./final.out -restart 0 -n 128 -log_view > ./log/implicit/n1-128.log
+#mpirun -np 1 ./final.out -restart 0 -n 256 -log_view > ./log/implicit/n1-256.log
 
+(... more ...)
 ------------------------------------------------------------
 
 Successfully completed.
 
 Resource usage summary:
 
-    CPU time :                                   4.34 sec.
-    Max Memory :                                 27 MB
-    Average Memory :                             26.20 MB
+    CPU time :                                   3.00 sec.
+    Max Memory :                                 25 MB
+    Average Memory :                             20.00 MB
     Total Requested Memory :                     -
     Delta Memory :                               -
-    Max Swap :                                   4 MB
-    Max Processes :                              8
-    Max Threads :                                10
-    Run time :                                   39 sec.
-    Turnaround time :                            40 sec.
+    Max Swap :                                   -
+    Max Processes :                              7
+    Max Threads :                                9
+    Run time :                                   28 sec.
+    Turnaround time :                            30 sec.
 
 The output (if any) follows:
 
-/share/intel/2018u4/compilers_and_libraries_2018.5.274/linux/mpi/intel64/bin/mpicc -fPIC -Wall -Wwrite-strings -Wno-strict-aliasing -Wno-unknown-pragmas -fstack-protector -fvisibility=hidden -O3 -march=native -mtune=native  -std=c99 -std=c99   -I/work/mae-liq1/lib/petsc-3.16.6/include    -c -DIMPLICIT -o src/heat_1d.o src/heat_1d.c
+/share/intel/2018u4/compilers_and_libraries_2018.5.274/linux/mpi/intel64/bin/mpicc -fPIC -Wall -Wwrite-strings -Wno-strict-aliasing -Wno-unknown-pragmas -fstack-protector -fvisibility=hidden -O3 -march=native -mtune=native  -std=c99 -std=c99   -I/work/mae-liq1/lib/petsc-3.16.6/include    -c -DEXPLICIT -o src/heat_1d.o src/heat_1d.c
+/share/intel/2018u4/compilers_and_libraries_2018.5.274/linux/mpi/intel64/bin/mpicxx -Wall -Wwrite-strings -Wno-strict-aliasing -Wno-unknown-pragmas -fstack-protector -fvisibility=hidden -g -O  -fPIC -std=gnu++11 -std=c99   -I/work/mae-liq1/lib/petsc-3.16.6/include   -L/work/mae-liq1/lib/petsc-3.16.6/lib    -Wl,-rpath,/work/mae-liq1/lib/petsc-3.16.6/lib  -lpetsc   -lm -o final.out src/heat_1d.o
+rm -f src/heat_1d.o
+
+
+PS:
+
+Read file <final-pro-log.err> for stderr output of this job.
+
+Sender: LSF System <lsfadmin@r01n15>
+Subject: Job 3826647: <final-pro> in cluster <sustchpc> Done
+
+Job <final-pro> was submitted from host <login03> by user <mae-liq1> in cluster <sustchpc> at Wed Jun  8 19:05:46 2022.
+Job was executed on host(s) <3*r01n15>, in queue <ser>, as user <mae-liq1> in cluster <sustchpc> at Wed Jun  8 19:05:47 2022.
+                            <2*r01n21>
+</work/mae-liq1> was used as the home directory.
+</work/mae-liq1/hpc/HPC-Final-Project> was used as the working directory.
+Started at Wed Jun  8 19:05:47 2022.
+Terminated at Wed Jun  8 19:06:15 2022.
+Results reported at Wed Jun  8 19:06:15 2022.
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#BSUB -J final-pro
+#BSUB -q ser
+#BSUB -e final-pro-log.err
+#BSUB -o final-pro-log.out
+
+module purge
+module load mpi/intel/2018.4
+
+#echo *-------------------- expicit----------------------------*
+#make IMPLICIT=no final.out
+#mpirun -np 1 ./final.out -restart 0 -n 100 -log_view > ./log/explicit/n1.log
+#mpirun -np 2 ./final.out -restart 0 -n 100 -log_view > ./log/explicit/n2.log
+#mpirun -np 4 ./final.out -restart 0 -n 100 -log_view > ./log/explicit/n4.log
+#mpirun -np 8 ./final.out -restart 0 -n 100 -log_view > ./log/explicit/n8.log
+#rm final.out
+
+#echo *-------------------- get explicit error ----------------------------*
+#make IMPLICIT=no final.out
+#mpirun -np 1 ./final.out -restart 0 -n 32 -log_view > ./log/explicit/n1-32.log
+#mpirun -np 1 ./final.out -restart 0 -n 64 -log_view > ./log/explicit/n1-64.log
+#mpirun -np 1 ./final.out -restart 0 -n 128 -log_view > ./log/explicit/n1-128.log
+#mpirun -np 1 ./final.out -restart 0 -n 256 -log_view > ./log/explicit/n1-256.log
+#mpirun -np 1 ./final.out -restart 0 -n 512 -log_view > ./log/explicit/n1-512.log
+#rm final.out
+
+#echo *-------------------- with different step size ----------------------------*
+make IMPLICIT=no final.out
+#mpirun -np 1 ./final.out -restart 0 -n 100 > ./log/explicit/n1-t0002.log
+#mpirun -np 1 ./final.out -restart 0 -n 100 > ./log/explicit/n1-t000015.log
+#mpirun -np 1 ./final.out -restart 0 -n 100 > ./log/explicit/n1-t000017.log
+#mpirun -np 1 ./final.out -restart 0 -n 100 > ./log/explicit/n1-t000019.log
+#mpirun -np 1 ./final.out -restart 0 -n 100 > ./log/explicit/n1-t0000195.log
+#mpirun -np 1 ./final.out -restart 0 -n 100 > ./log/explicit/n1-t0000198.log
+mpirun -np 1 ./final.out -restart 0 -n 100 > ./log/explicit/n1-t0000199.log
+rm final.out
+
+#echo *-------------------- impicit----------------------------*
+#make IMPLICIT=yes final.out
+#mpirun -np 1 ./final.out -restart 0 -n 100 -log_view > ./log/implicit/n1.log
+#mpirun -np 2 ./final.out -restart 0 -n 100 -log_view > ./log/implicit/n2.log
+#mpirun -np 4 ./final.out -restart 0 -n 100 -log_view > ./log/implicit/n4.log
+#mpirun -np 8 ./final.out -restart 0 -n 100 -log_view > ./log/implicit/n8.log
+#mpirun -np 1 ./final.out -restart 0 -n 100 -ksp_type gmres -pc_type asm -log_view > ./log/implicit/n1-ksp.log 2>&1
+#rm final.out
+
+#echo *-------------------- get implicit error ----------------------------*
+#make IMPLICIT=yes final.out
+#mpirun -np 1 ./final.out -restart 0 -n 32 -log_view > ./log/implicit/n1-32.log
+#mpirun -np 1 ./final.out -restart 0 -n 64 -log_view > ./log/implicit/n1-64.log
+#mpirun -np 1 ./final.out -restart 0 -n 128 -log_view > ./log/implicit/n1-128.log
+
+(... more ...)
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   3.00 sec.
+    Max Memory :                                 23 MB
+    Average Memory :                             18.50 MB
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              8
+    Max Threads :                                10
+    Run time :                                   27 sec.
+    Turnaround time :                            29 sec.
+
+The output (if any) follows:
+
+/share/intel/2018u4/compilers_and_libraries_2018.5.274/linux/mpi/intel64/bin/mpicc -fPIC -Wall -Wwrite-strings -Wno-strict-aliasing -Wno-unknown-pragmas -fstack-protector -fvisibility=hidden -O3 -march=native -mtune=native  -std=c99 -std=c99   -I/work/mae-liq1/lib/petsc-3.16.6/include    -c -DEXPLICIT -o src/heat_1d.o src/heat_1d.c
 /share/intel/2018u4/compilers_and_libraries_2018.5.274/linux/mpi/intel64/bin/mpicxx -Wall -Wwrite-strings -Wno-strict-aliasing -Wno-unknown-pragmas -fstack-protector -fvisibility=hidden -g -O  -fPIC -std=gnu++11 -std=c99   -I/work/mae-liq1/lib/petsc-3.16.6/include   -L/work/mae-liq1/lib/petsc-3.16.6/lib    -Wl,-rpath,/work/mae-liq1/lib/petsc-3.16.6/lib  -lpetsc   -lm -o final.out src/heat_1d.o
 rm -f src/heat_1d.o
 
