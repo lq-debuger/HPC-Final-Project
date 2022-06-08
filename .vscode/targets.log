@@ -9,7 +9,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 make: *** No rule to make target `all'.  Stop.
 
 
-# Make data base, printed on Mon Jun  6 14:34:38 2022
+# Make data base, printed on Wed Jun  8 14:29:07 2022
 
 # Variables
 
@@ -21,6 +21,8 @@ make: *** No rule to make target `all'.  Stop.
 .SHELLFLAGS := -c
 # environment
 QTDIR = /usr/lib64/qt-3.3
+# environment
+IOZONEROOT = /share/base/iozone/3.482
 # environment
 VSCODE_AGENT_FOLDER = /work/mae-liq1/.vscode-server
 # makefile (from `Makefile', line 60)
@@ -53,6 +55,8 @@ CFLAGS := -fPIC -Wall -Wwrite-strings -Wno-strict-aliasing -Wno-unknown-pragmas 
 LSF_SERVERDIR = /opt/ibm/lsf/10.1/linux3.10-glibc2.17-x86_64/etc
 # makefile (from `Makefile', line 33)
 CUDAC := /usr/local/cuda/bin/nvcc
+# environment
+PDSHROOT = /share/base/pdsh/2.33
 # makefile (from `Makefile', line 1)
 MAKEFILE_LIST :=  Makefile
 # environment
@@ -63,8 +67,6 @@ CXXFLAGS := -Wall -Wwrite-strings -Wno-strict-aliasing -Wno-unknown-pragmas -fst
 XDG_DATA_DIRS = /work/mae-liq1/.local/share/flatpak/exports/share/:/var/lib/flatpak/exports/share/:/usr/local/share/:/usr/share/
 # environment
 VSCODE_VERBOSE_LOGGING = true
-# environment
-PERL_MM_OPT = INSTALL_BASE=/work/mae-liq1/perl5
 # makefile (from `Makefile', line 40)
 CFLAGS_FINAL := -DEXPLICIT
 # environment
@@ -76,15 +78,17 @@ LESSOPEN = ||/usr/bin/lesspipe.sh %s
 # environment
 VSCODE_CWD = /work/mae-liq1
 # environment
-SSH_CONNECTION = 172.18.6.2 60879 10.11.2.1 22
+SSH_CONNECTION = 172.18.6.174 55795 10.11.2.3 22
 # environment
-PATH = /work/mae-liq1/.vscode-server/bin/c3511e6c69bb39013c4a4b7b9566ec1ca73fc4d5/bin/remote-cli:/opt/lenovo/onecli:/opt/ibm/lsf/10.1/linux3.10-glibc2.17-x86_64/etc:/opt/ibm/lsf/10.1/linux3.10-glibc2.17-x86_64/bin:/usr/lpp/mmfs/bin:/share/base/bin:/usr/lib64/qt-3.3/bin:/work/mae-liq1/perl5/bin:/opt/lenovo/onecli:/usr/lpp/mmfs/bin:/share/base/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/work/mae-liq1/.local/bin:/work/mae-liq1/bin:/work/mae-liq1/.local/bin:/work/mae-liq1/bin
+PATH = /work/mae-liq1/.vscode-server/bin/c3511e6c69bb39013c4a4b7b9566ec1ca73fc4d5/bin/remote-cli:/opt/lenovo/onecli:/opt/ibm/lsf/10.1/linux3.10-glibc2.17-x86_64/etc:/opt/ibm/lsf/10.1/linux3.10-glibc2.17-x86_64/bin:/usr/lpp/mmfs/bin:/share/base/bin:/share/base/jube/2.2.1/bin:/share/base/ior/3.1.0/bin:/share/base/collectl/4.3.0/:/share/base/iozone/3.482/bin:/share/base/pdsh/2.33/bin:/usr/lib64/qt-3.3/bin:/opt/lenovo/onecli:/usr/lpp/mmfs/bin:/share/base/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/sbin:/work/mae-liq1/.local/bin:/work/mae-liq1/bin
 # environment
 QT_GRAPHICSSYSTEM_CHECKED = 1
 # environment
 XDG_RUNTIME_DIR = /run/user/2435
 # makefile (from `Makefile', line 28)
 FFLAGS := -fPIC -Wall -ffree-line-length-0 -Wno-unused-dummy-argument -O3 -march=native -mtune=native
+# environment
+JUBEROOT = /share/base/jube/2.2.1
 # environment
 LSF_ENVDIR = /opt/ibm/lsf/conf
 # environment
@@ -104,25 +108,19 @@ VSCODE_PIPE_LOGGING = true
 # environment
 PWD = /work/mae-liq1/hpc/HPC-Final-Project
 # environment
-VSCODE_IPC_HOOK_CLI = /run/user/2435/vscode-ipc-348e3833-b299-4811-b0d8-030c5d2f6f2e.sock
+VSCODE_IPC_HOOK_CLI = /run/user/2435/vscode-ipc-218d5a9d-d499-4721-95e8-664fe521aba6.sock
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
-LD_LIBRARY_PATH = /opt/ibm/lsf/10.1/linux3.10-glibc2.17-x86_64/lib
-# environment
 LSF_LIBDIR = /opt/ibm/lsf/10.1/linux3.10-glibc2.17-x86_64/lib
 # environment
-MANPATH = /opt/ibm/lsf/10.1/man:
+MANPATH = /share/base/jube/2.2.1/share/man:/share/base/collectl/4.3.0/man1:/share/base/pdsh/2.33/share/man:/opt/ibm/lsf/10.1/man:
 # environment
 VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
 HOME = /work/mae-liq1
 # environment
-PERL_MB_OPT = --install_base /work/mae-liq1/perl5
-# environment
-PERL_LOCAL_LIB_ROOT = :/work/mae-liq1/perl5
-# environment
-PERL5LIB = /work/mae-liq1/perl5/lib/perl5:
+LD_LIBRARY_PATH = /share/base/jube/2.2.1/lib:/share/base/ior/3.1.0/lib:/share/base/pdsh/2.33/lib:/opt/ibm/lsf/10.1/linux3.10-glibc2.17-x86_64/lib
 # environment
 MODULESHOME = /usr/share/Modules
 # environment
@@ -138,7 +136,7 @@ VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # automatic
 ^D = $(patsubst %/,%,$(dir $^))
 # environment
-HOSTNAME = login01
+HOSTNAME = login03
 # environment
 MAKELEVEL := 0
 # makefile (from `Makefile', line 36)
@@ -148,7 +146,7 @@ MAKE = $(MAKE_COMMAND)
 # default
 MAKECMDGOALS := all
 # environment
-SHLVL = 5
+COLLECTLROOT = /share/base/collectl/4.3.0
 # makefile (from `Makefile', line 22)
 CC := /share/intel/2018u4/compilers_and_libraries_2018.5.274/linux/mpi/intel64/bin/mpicc
 # environment
@@ -156,13 +154,15 @@ OMP_NUM_THREADS = 1
 # makefile (from `Makefile', line 59)
 EXEC := final.out
 # environment
-XDG_SESSION_ID = 9628
+XDG_SESSION_ID = 607534
 # environment
 USER = mae-liq1
 # makefile (from `Makefile', line 24)
 FC := /share/intel/2018u4/compilers_and_libraries_2018.5.274/linux/mpi/intel64/bin/mpif90
 # environment
 QTLIB = /usr/lib64/qt-3.3/lib
+# environment
+INCLUDE = /share/base/jube/2.2.1/include:/share/base/pdsh/2.33/include
 # automatic
 %D = $(patsubst %/,%,$(dir $%))
 # environment
@@ -180,16 +180,18 @@ MAKE_COMMAND := make
 CVS_RSH = ssh
 # automatic
 *F = $(notdir $*)
+# environment
+PYTHONPATH = /share/base/jube/2.2.1/lib/python2.7/site-packages
 # makefile
 MAKEFLAGS = Rrqp
 # environment
 MFLAGS = -Rrqp
 # environment
-SSH_CLIENT = 172.18.6.2 60879 22
+SSH_CLIENT = 172.18.6.174 55795 22
 # environment
 MAIL = /var/spool/mail/mae-liq1
 # environment
-LOADEDMODULES = 
+LOADEDMODULES = pdsh/2.33:iozone/3.482:collectl/4.3.0:ior/3.1.0:jube/2.2.1
 # makefile (from `Makefile', line 2)
 PETSC_DIR := /work/mae-liq1/lib/petsc-3.16.6
 # environment
@@ -210,6 +212,8 @@ MAKEFILES :=
 PROMPT_COMMAND = echo "`date +%Y-%m-%d" "%H:%M:%S`","`who am i`","`whoami`","`hostname`","`history 1`","`pwd`" >> /var/log/audit_check.log
 # automatic
 <F = $(notdir $<)
+# environment
+_LMFILES_ = /share/base/modulefiles/tools/pdsh/2.33:/share/base/modulefiles/tools/iozone/3.482:/share/base/modulefiles/tools/collectl/4.3.0:/share/base/modulefiles/tools/ior/3.1.0:/share/base/modulefiles/tools/jube/2.2.1
 # makefile (from `Makefile', line 23)
 CXX := /share/intel/2018u4/compilers_and_libraries_2018.5.274/linux/mpi/intel64/bin/mpicxx
 # makefile (from `Makefile', line 25)
@@ -234,6 +238,10 @@ CUDAC_FLAGS := -Xcompiler -fPIC -O3 -ccbin /share/intel/2018u4/compilers_and_lib
 QTINC = /usr/lib64/qt-3.3/include
 # default
 .RECIPEPREFIX := 
+# environment
+IORROOT = /share/base/ior/3.1.0
+# environment
+SHLVL = 5
 # makefile
 .DEFAULT_GOAL := print
 # environment
@@ -243,7 +251,7 @@ VSCODE_EXTHOST_WILL_SEND_SOCKET = true
 # environment
 BINARY_TYPE_HPC = 
 # variable set hash-table stats:
-# Load=113/1024=11%, Rehash=0, Collisions=16/210=8%
+# Load=117/1024=11%, Rehash=0, Collisions=17/214=8%
 
 # Pattern-specific Variable Values
 
@@ -251,8 +259,8 @@ BINARY_TYPE_HPC =
 
 # Directories
 
-# . (device 44, inode 178643804): 18 files, no impossibilities.
-# src (device 44, inode 177878107): 3 files, no impossibilities.
+# . (device 42, inode 178643804): 18 files, no impossibilities.
+# src (device 42, inode 177878107): 3 files, no impossibilities.
 
 # 21 files, no impossibilities in 2 directories.
 
@@ -284,6 +292,7 @@ src/heat_1d.o:
 #  Modification time never checked.
 #  File has not been updated.
 
+ 
 # Not a target:
 .SUFFIXES:
 #  Implicit rule search has not been done.
@@ -301,7 +310,6 @@ print:
 	@echo CFLAGS=$(CFLAGS)
 	@echo CXXFLAGS=$(CXXFLAGS)
 	@echo FFLAGS=$(FFLAGS)
- 
 	@echo CPPFLAGS=$(CPPFLAGS)
 	@echo LDFLAGS=$(LDFLAGS)
 	@echo LDLIBS=$(LDLIBS)
@@ -354,6 +362,6 @@ clean:
 
 # strcache hash-table stats:
 # Load=31/8192=0%, Rehash=0, Collisions=2/43=5%
-# Finished Make data base on Mon Jun  6 14:34:38 2022
+# Finished Make data base on Wed Jun  8 14:29:07 2022
 
  

@@ -42,7 +42,7 @@
 \date{\today}
 \maketitle
 
-\section*{Problem}
+\section*{1. Problem}
 We consider the transient heat equation in a one-dimensional (1D) domain $\Omega := (0,1)$. The boundary of the domain is $\Gamma = \left\lbrace 0, 1 \right\rbrace$.
 Let $f$ be the heat supply per unit volume, $u$ be the temperature,  $\rho$ be the density, $c$ be the heat capacity, $u_0$ be the initial temperature, $\kappa$ be the conductivity, $n_x$ be the Cartesian components of the unit outward normal vector . The boundary data involves the prescribed temperature $g$ on $\Gamma_g$ and heat flux $h$ on $\Gamma_h$. The boundary $\Gamma$ admits a non-overlapping decomposition: $\Gamma = \overline{\Gamma_{g} \cup \Gamma_h}$ and $\emptyset = \Gamma_g \cap \Gamma_h$. The transient heat equation may be stated as follows.
 
@@ -53,8 +53,8 @@ u &= g \quad \mbox{ on } \Gamma_{g} \times (0,T) \\
 u|_{t=0} &= u_0 \quad \mbox{ in } \Omega.
 \end{align*}
 
-\section*{Theoretical analysis}
-\subsection*{Explicit Euler method}
+\section*{2. Theoretical analysis}
+\subsection*{2.1 Explicit Euler method}
 \begin{equation}
     \frac{\partial u}{\partial t}=\frac{u^{n+1}-u^n}{\Delta t}+O(\Delta t^2)\label{partial time}
 \end{equation}
@@ -65,19 +65,15 @@ With FDM, the transient heat equation in 1D can be dispersed into the following:
 \begin{equation}
     u^{n+1}=u^n+\frac{\kappa\Delta t}{\rho c\Delta x^2}(u_{i+1}^n-2u_i^n+u_{i-1}^n)+\frac{f\Delta t}{\rho c}
 \end{equation}
-When  x=0, x=1 ,$\kappa\frac{\partial u}{\partial x}=0$.
-For x=0,$\kappa\frac{u_1-u_{-1}}{2\Delta x}=0$,so $u_{-1}=u_1$;
-For x=1,$\kappa\frac{u_{n+1}-u_{n-1}}{2\Delta x}=0$,so $u_{n+1}=u_{n-1}$.
-
 
 So we can get a tri-diagonal system $AX+X1=b$:
 \begin{center}
 \begin{pmatrix}
-b & 2a & 0 & ... & 0 \\
+b & a & 0 & ... & 0 \\
 a & b & a \\
  & & ... & \\
  &  & a & b & a\\
-0 & 0 & ... & 2a & b
+0 & 0 & ... & a & b
 \end{pmatrix}\begin{pmatrix}
 u_1^{n} \\
 u_2^{1} \\
@@ -97,7 +93,7 @@ u_m^{n+1}
 \end{equation*}
 
 
-\subsection*{Implicit Euler method}
+\subsection*{2.2 Implicit Euler method}
 From eq. \ref{partial time} and eq. \ref{partial u}, we can deduce the following:
 \begin{equation}
     \rho c\frac{u_i^{n+1}-u_i^n}{\Delta t}-\kappa\frac{u_{i+1}^{n+1}-2u_i^{n+1}+u_{i-1}^{n+1}}{\Delta x^2}=f
@@ -109,11 +105,11 @@ From eq. \ref{partial time} and eq. \ref{partial u}, we can deduce the following
 So we can get a tri-diagonal system $AX=b$:
 \begin{center}
 \begin{pmatrix}
-b & 2a & 0 & ... & 0 \\
+b & a & 0 & ... & 0 \\
 a & b & a \\
  & & ... & \\
  &  & a & b & a\\
-0 & 0 & ... & 2a & b
+0 & 0 & ... & a & b
 \end{pmatrix}\begin{pmatrix}
 u_1^{n+1} \\
 u_2^{n+1} \\
@@ -131,5 +127,47 @@ u_m^{n}+\frac{f\Delta t}{\rho c}
 \begin{equation*}
     a=-\frac{\kappa\Delta t}{\rho c\Delta x^2}, b=1+2\frac{\kappa\Delta t}{\rho c\Delta x^2}
 \end{equation*}
+
+\subsection*{2.3 Exact solution}
+Because $\frac{\partial u}{\partial t}=0$ , so we can get exact solution by integration.
+\begin{equation}
+    u_{exact} = \frac{sin\pi x}{\pi^2}
+\end{equation}
+
+\subsection*{2.4 Stability analysis}
+
+\section*{3. Code analysis}
+\begin{figure}
+    \centering
+    \includegraphics{../plot/explicit.eps}
+    \caption{explicit scheme result}
+    \label{fig:explicit}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics{../plot/implicit.eps}
+    \caption{implicit scheme result}
+    \label{fig:implicit}
+\end{figure}
+
+\subsection*{3.1 Code result}
+Fig \ref{fig:explicit} and Fig \ref{fig:implicit} are the results after calculating 100000 steps (t=2s). And the two results are same.
+
+\subsubsection*{3.2 Parallel analysis}
+
+\begin{figure}
+    \centering
+    \includegraphics{../plot/time.eps}
+    \caption{Time cost}
+    \label{fig:time}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics{../plot/flops.eps}
+    \caption{Flops/sec}
+    \label{fig:flops}
+\end{figure}
 
 \end{document}
