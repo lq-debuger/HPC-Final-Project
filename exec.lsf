@@ -26,12 +26,12 @@ module load mpi/intel/2018.4
 #echo *-------------------- with different step size ----------------------------*
 make IMPLICIT=no final.out
 #mpirun -np 1 ./final.out -restart 0 -n 100 > ./log/explicit/n1-t0002.log
-#mpirun -np 1 ./final.out -restart 0 -n 100 > ./log/explicit/n1-t000015.log
-#mpirun -np 1 ./final.out -restart 0 -n 100 > ./log/explicit/n1-t000017.log
-#mpirun -np 1 ./final.out -restart 0 -n 100 > ./log/explicit/n1-t000019.log
-#mpirun -np 1 ./final.out -restart 0 -n 100 > ./log/explicit/n1-t0000195.log
-#mpirun -np 1 ./final.out -restart 0 -n 100 > ./log/explicit/n1-t0000198.log
-mpirun -np 1 ./final.out -restart 0 -n 100 > ./log/explicit/n1-t0000199.log
+#mpirun -np 1 ./final.out -restart 0 -n 100 > ./log/explicit/n1-t00015.log
+#mpirun -np 1 ./final.out -restart 0 -n 100  > ./log/explicit/n1-t00010.log
+#mpirun -np 1 ./final.out -restart 0 -n 100 > ./log/explicit/n1-t00005.log
+#mpirun -np 1 ./final.out -restart 0 -n 100 > ./log/explicit/n1-t00008.log
+#mpirun -np 1 ./final.out -restart 0 -n 100 > ./log/explicit/n1-t00007.log
+mpirun -np 1 ./final.out -restart 0 -n 100 > ./log/explicit/n1-t00006.log
 rm final.out
 
 #echo *-------------------- impicit----------------------------*

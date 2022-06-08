@@ -25,7 +25,7 @@ int main(int argc,char **args)
   // dt   = 0.000015;
   // dt   = 0.000017;
   // dt   = 0.000019;
-  dt   = 0.0000199;
+  dt   = 0.00006;
   steps= 100000;
   // steps= 1000000;
   rho  = 1.0;
