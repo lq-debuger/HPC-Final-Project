@@ -1,5 +1,6 @@
 # HPC-Final-Project
-
+- SID:12132402
+- NAME：李强
 ## Prerequisites
 - petsc
 - gnuplot
