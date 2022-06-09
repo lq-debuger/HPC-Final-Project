@@ -15,14 +15,22 @@ module load valgrind/3.14.0
 #mpirun -np 8 ./final.out -restart 0 -n 100 -log_view > ./log/explicit/n8.log
 #rm final.out
 
-#echo *-------------------- get explicit error ----------------------------*
+#echo *-------------------- expicit restart----------------------------*
 #make IMPLICIT=no final.out
-#mpirun -np 1 ./final.out -restart 0 -n 32 -log_view > ./log/explicit/n1-32.log
-#mpirun -np 1 ./final.out -restart 0 -n 64 -log_view > ./log/explicit/n1-64.log
-#mpirun -np 1 ./final.out -restart 0 -n 128 -log_view > ./log/explicit/n1-128.log
-#mpirun -np 1 ./final.out -restart 0 -n 256 -log_view > ./log/explicit/n1-256.log
-#mpirun -np 1 ./final.out -restart 0 -n 512 -log_view > ./log/explicit/n1-512.log
+#mpirun -np 1 ./final.out -restart 1 -n 100 -log_view > ./log/explicit/n1.log
+#mpirun -np 2 ./final.out -restart 1 -n 100 -log_view > ./log/explicit/n2.log
+#mpirun -np 4 ./final.out -restart 1 -n 100 -log_view > ./log/explicit/n4.log
+#mpirun -np 8 ./final.out -restart 1 -n 100 -log_view > ./log/explicit/n8.log
 #rm final.out
+
+#echo *-------------------- get explicit error ----------------------------*
+make IMPLICIT=no final.out
+mpirun -np 1 ./final.out -restart 0 -n 32 -log_view > ./log/explicit/n1-32.log
+mpirun -np 1 ./final.out -restart 0 -n 64 -log_view > ./log/explicit/n1-64.log
+mpirun -np 1 ./final.out -restart 0 -n 128 -log_view > ./log/explicit/n1-128.log
+mpirun -np 1 ./final.out -restart 0 -n 256 -log_view > ./log/explicit/n1-256.log
+mpirun -np 1 ./final.out -restart 0 -n 512 -log_view > ./log/explicit/n1-512.log
+rm final.out
 
 #echo *-------------------- with different step size ----------------------------*
 #make IMPLICIT=no final.out
@@ -42,6 +50,15 @@ module load valgrind/3.14.0
 #mpirun -np 4 ./final.out -restart 0 -n 100 -log_view > ./log/implicit/n4.log
 #mpirun -np 8 ./final.out -restart 0 -n 100 -log_view > ./log/implicit/n8.log
 #mpirun -np 1 ./final.out -restart 0 -n 100 -ksp_type gmres -pc_type asm -log_view > ./log/implicit/n1-ksp.log 2>&1
+#rm final.out
+
+#echo *-------------------- impicit restart----------------------------*
+#make IMPLICIT=yes final.out
+#mpirun -np 1 ./final.out -restart 1 -n 100 -log_view > ./log/implicit/n1.log
+#mpirun -np 2 ./final.out -restart 1 -n 100 -log_view > ./log/implicit/n2.log
+#mpirun -np 4 ./final.out -restart 1 -n 100 -log_view > ./log/implicit/n4.log
+#mpirun -np 8 ./final.out -restart 1 -n 100 -log_view > ./log/implicit/n8.log
+#mpirun -np 1 ./final.out -restart 1 -n 100 -ksp_type gmres -pc_type asm -log_view > ./log/implicit/n1-ksp.log 2>&1
 #rm final.out
 
 #echo *-------------------- get implicit error ----------------------------*
@@ -64,9 +81,9 @@ module load valgrind/3.14.0
 
 #echo *-------------------- using valgrind to check the program ----------------------------*
 #-----expicit----#
-make IMPLICIT=no final.out
-valgrind mpirun -np 1 ./final.out -restart 0 -n 100 > ./log/explicit/memroycheck.log 2>&1
-rm final.out
+#make IMPLICIT=no final.out
+#valgrind mpirun -np 1 ./final.out -restart 0 -n 100 > ./log/explicit/memroycheck.log 2>&1
+#rm final.out
 
 #make IMPLICIT=yes final.out
 #valgrind --leak-check=full mpirun -np 1 ./final.out -restart 0 -n 100 > ./log/implicit/memroycheck.log 2>&1
